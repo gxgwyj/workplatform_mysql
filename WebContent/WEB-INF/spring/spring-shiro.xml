@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:p="http://www.springframework.org/schema/p"  
+       xmlns:mvc="http://www.springframework.org/schema/mvc"
+       xmlns:tx="http://www.springframework.org/schema/tx"  
+       xsi:schemaLocation="   
+           http://www.springframework.org/schema/beans   
+           http://www.springframework.org/schema/beans/spring-beans-3.2.xsd   
+           http://www.springframework.org/schema/context   
+           http://www.springframework.org/schema/context/spring-context-3.2.xsd  
+           http://www.springframework.org/schema/mvc   
+           http://www.springframework.org/schema/mvc/spring-mvc-3.2.xsd
+           http://www.springframework.org/schema/tx
+ 		   http://www.springframework.org/schema/tx/spring-tx-3.2.xsd
+           ">
+           <!-- shiro的缓存管理器，然后需要将缓存管理器注入  到安全管理其中  -->
+			<bean id="shiroEhcacheManager" class="org.apache.shiro.cache.ehcache.EhCacheManager">
+			        <!--classpath是缓存属性的配置文件  -->
+					<property name="cacheManagerConfigFile" value="classpath:ehcache.xml" />
+			</bean>
+        <!-- Shiro Filter -->
+		<bean id="shiroFilter" class="org.apache.shiro.spring.web.ShiroFilterFactoryBean">
+			<property name="securityManager" ref="securityManager" />
+			<!--欢迎页-->
+			<property name="loginUrl" value="/" />
+			<!--登录成功的页面-->
+			<property name="successUrl" value="security/main/main" />
+			<!--未授权时跳转的页面-->
+			<property name="unauthorizedUrl" value="/login_toLogin" />
+			<property name="filterChainDefinitions">
+				<value>
+	           	/**							= anon
+				</value>
+			</property>
+		</bean>
+		<!-- 項目自定义的Realm -->
+	    <bean id="ShiroRealm" class="com.junyang.common.interceptor.realm.ShiroRealm"></bean>
+		<bean id="securityManager" class="org.apache.shiro.web.mgt.DefaultWebSecurityManager">
+			<property name="realm" ref="ShiroRealm" />
+			 <!--注入缓存管理器  -->
+     		<property name="cacheManager" ref="shiroEhcacheManager"></property>
+		</bean>
+</beans>

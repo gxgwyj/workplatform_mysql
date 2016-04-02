@@ -1,0 +1,219 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.junyang.security.person.dao.PersonMapper" >
+  <resultMap id="BaseResultMap" type="com.junyang.security.person.model.Person" >
+    <id column="P_ID" property="id" jdbcType="VARCHAR" />
+    <result column="P_CODE" property="code" jdbcType="VARCHAR" />
+    <result column="P_PASSWORD" property="password" jdbcType="VARCHAR" />
+  </resultMap>
+  <resultMap id="personVo" type="com.junyang.security.person.vo.PersonVo" >
+    <id column="P_ID" property="id" jdbcType="VARCHAR" />
+    <result column="P_NAME" property="name" jdbcType="VARCHAR" />
+    <result column="P_CODE" property="code" jdbcType="VARCHAR" />
+    <result column="P_CARD" property="card" jdbcType="VARCHAR" />
+    <result column="P_SEX" property="sex" jdbcType="VARCHAR" />
+    <result column="P_BIRTH" property="birth" jdbcType="VARCHAR" />
+    <result column="P_EMAIL" property="email" jdbcType="VARCHAR" />
+    <result column="P_NATIONAL" property="national" jdbcType="VARCHAR" />
+    <result column="P_ADDRESS" property="address" jdbcType="VARCHAR" />
+    <result column="P_TEL" property="tel" jdbcType="VARCHAR" />
+    <result column="P_PHONE" property="phone" jdbcType="VARCHAR" />
+    <result column="P_IMG" property="img" jdbcType="VARCHAR" />
+    <result column="P_ENAME" property="ename" jdbcType="VARCHAR" />
+    <result column="P_LOGINNAME" property="loginname" jdbcType="VARCHAR" />
+    <result column="P_PASSWORD" property="password" jdbcType="VARCHAR" />
+    <result column="STATE" property="state" jdbcType="VARCHAR" />
+    <result column="ORG_ID" property="orgId" jdbcType="VARCHAR" />
+    <result column="ORG_NAME" property="orgName" jdbcType="VARCHAR" />
+  </resultMap>
+  <resultMap id="personVoAll" type="com.junyang.security.person.vo.PersonVo" >
+    <id column="P_ID" property="id" jdbcType="VARCHAR" />
+    <result column="P_NAME" property="name" jdbcType="VARCHAR" />
+    <result column="P_CODE" property="code" jdbcType="VARCHAR" />
+    <result column="P_CARD" property="card" jdbcType="VARCHAR" />
+    <result column="P_SEX" property="sex" jdbcType="VARCHAR" />
+    <result column="P_BIRTH" property="birth" jdbcType="VARCHAR" />
+    <result column="P_EMAIL" property="email" jdbcType="VARCHAR" />
+    <result column="P_NATIONAL" property="national" jdbcType="VARCHAR" />
+    <result column="P_ADDRESS" property="address" jdbcType="VARCHAR" />
+    <result column="P_TEL" property="tel" jdbcType="VARCHAR" />
+    <result column="P_PHONE" property="phone" jdbcType="VARCHAR" />
+    <result column="P_IMG" property="img" jdbcType="VARCHAR" />
+    <result column="P_ENAME" property="ename" jdbcType="VARCHAR" />
+    <result column="P_LOGINNAME" property="loginname" jdbcType="VARCHAR" />
+    <result column="P_PASSWORD" property="password" jdbcType="VARCHAR" />
+    <result column="P_STATE" property="state" jdbcType="VARCHAR" />
+    <result column="ORG_ID" property="orgId" jdbcType="VARCHAR" />
+    <result column="ORG_NAME" property="orgName" jdbcType="VARCHAR" />
+    <collection property="roles" ofType="com.junyang.security.role.model.Role">
+    	  	<id column="ROLE_ID" property="rId" jdbcType="VARCHAR" />
+    		<result column="ROLE_NAME" property="rName" jdbcType="VARCHAR" />
+    		<result column="ROLE_STATE" property="state" jdbcType="VARCHAR" />
+    </collection>
+  </resultMap>
+  <select id="selectPersonList" resultMap="BaseResultMap" parameterType="com.junyang.security.person.vo.QueryPersonVo" >
+    select * 
+    from T_PERSON
+    <where>
+    	<if test="qCode!=null and qCode!=''"> and P_CODE = #{qCode,jdbcType=VARCHAR}</if>
+    	<if test="qPassWord!=null and qPassWord!=''"> and P_PASSWORD = #{qPassWord,jdbcType=VARCHAR}</if>
+    </where>
+  </select>
+  <insert id="insert" parameterType="com.junyang.security.person.model.Person" >
+  <!--使用javaUUID作为主键，使用ognl表达式（这个方法比较模糊）-->
+  <bind name="javaUUID" value="@com.junyang.common.util.PrimaryKeyManager@getPrimaryKey()"/>
+  insert into T_PERSON (P_ID, P_CODE, P_NAME, P_CARD, P_SEX,P_BIRTH,P_EMAIL,P_NATIONAL,P_ADDRESS,P_TEL,P_PHONE,P_IMG,P_ENAME,P_LOGINNAME,P_PASSWORD,STATE,ORG_ID)
+    values (
+    	#{javaUUID,jdbcType=VARCHAR},
+    	#{code,jdbcType=VARCHAR},
+    	#{name,jdbcType=VARCHAR}, 
+        #{card,jdbcType=VARCHAR},
+        #{sex,jdbcType=VARCHAR},
+        #{birth,jdbcType=VARCHAR},
+        #{email,jdbcType=VARCHAR},
+        #{national,jdbcType=VARCHAR},
+        #{address,jdbcType=VARCHAR},
+        #{tel,jdbcType=VARCHAR},
+        #{phone,jdbcType=VARCHAR},
+        #{img,jdbcType=VARCHAR},
+        #{ename,jdbcType=VARCHAR},
+        #{loginname,jdbcType=VARCHAR},
+        #{password,jdbcType=VARCHAR},
+        #{state,jdbcType=VARCHAR},
+        #{orgId,jdbcType=VARCHAR}
+        )
+  </insert>
+  <sql id="selectPersonVo">
+       select 
+	       t1.P_ID   as P_ID,
+	       t1.P_CODE as P_CODE,
+	       t1.P_NAME as P_NAME,
+	       t1.P_CARD as P_CARD,
+	       t1.P_SEX  as P_SEX,
+	       t1.P_BIRTH as P_BIRTH,
+	       t1.P_EMAIL as P_EMAIL,
+	       t1.P_NATIONAL as P_NATIONAL,
+	       t1.P_ADDRESS as P_ADDRESS,
+	       t1.P_TEL as P_TEL,
+	       t1.P_PHONE as P_PHONE,
+	       t1.P_IMG as P_IMG,
+	       t1.P_ENAME as P_ENAME,
+	       t1.P_LOGINNAME as P_LOGINNAME,
+	       t1.P_PASSWORD as P_PASSWORD,
+	       t1.STATE as STATE,
+	       t1.ORG_ID as ORG_ID,
+	       t2.O_NAME as ORG_NAME
+       from T_PERSON t1
+       left join T_ORGANIZATION t2  on t1.ORG_ID=t2.O_ID
+  </sql>
+  <select id="selectPersonVoPage" resultMap="personVo" parameterType="com.junyang.security.person.vo.QueryPersonVo">
+   		<include refid="selectPersonVo"></include>
+       <if test="queryPersonVo!=null">
+       	<where>
+       		<if test="queryPersonVo.qCode!=null and queryPersonVo.qCode!=''">and t1.P_CODE  like '%'||#{queryPersonVo.qCode,jdbcType=VARCHAR}||'%'</if>
+       		<if test="queryPersonVo.qName!=null and queryPersonVo.qName!=''">and t1.P_NAME like  '%'||#{queryPersonVo.qName,jdbcType=VARCHAR}||'%' </if>
+       		<if test="queryPersonVo.qOrgId!=null and queryPersonVo.qOrgId!=''">and t1.ORG_ID = #{queryPersonVo.qOrgId,jdbcType=VARCHAR} </if>
+       		<if test="queryPersonVo.qSex!=null and queryPersonVo.qSex!=''">and t1.P_SEX = #{queryPersonVo.qSex,jdbcType=VARCHAR} </if>
+       	</where>
+       </if>
+  </select>
+  <select id="selectPersonVoById" resultMap="personVo" parameterType="java.lang.String">
+   		<include refid="selectPersonVo"></include>
+        where  t1.P_ID = #{0}
+  </select>
+  <update id="updateByPrimaryKeySelective" parameterType="com.junyang.security.person.model.Person" >
+    update T_PERSON
+    <set >
+      <if test="id != null" >
+        P_ID = #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="code != null" >
+        P_CODE = #{code,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null" >
+        P_NAME = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="card != null" >
+        P_CARD = #{card,jdbcType=VARCHAR},
+      </if>
+       <if test="sex != null" >
+        P_SEX = #{sex,jdbcType=VARCHAR},
+      </if>
+       <if test="birth != null" >
+        P_BIRTH = #{birth,jdbcType=VARCHAR},
+      </if>
+       <if test="email != null" >
+        P_EMAIL = #{email,jdbcType=VARCHAR},
+      </if>
+        <if test="national != null" >
+        P_NATIONAL = #{national,jdbcType=VARCHAR},
+      </if>
+       <if test="address != null" >
+        P_ADDRESS = #{address,jdbcType=VARCHAR},
+      </if>
+       <if test="tel != null" >
+        P_TEL = #{tel,jdbcType=VARCHAR},
+      </if>
+       <if test="phone != null" >
+        P_PHONE = #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="img != null" >
+        P_IMG = #{img,jdbcType=VARCHAR},
+      </if>
+      <if test="ename != null" >
+        P_ENAME = #{ename,jdbcType=VARCHAR},
+      </if>
+      <if test="loginname != null" >
+        P_LOGINNAME = #{loginname,jdbcType=VARCHAR},
+      </if>
+       <if test="password != null" >
+        P_PASSWORD = #{password,jdbcType=VARCHAR},
+      </if>
+       <if test="state != null" >
+        STATE = #{state,jdbcType=VARCHAR},
+      </if>
+      <if test="orgId != null" >
+        ORG_ID = #{orgId,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where P_ID = #{id,jdbcType=VARCHAR}
+  </update>
+  <delete id="deletePerson" parameterType="java.lang.String" >
+    delete from T_PERSON
+    where P_ID = #{0}
+  </delete>
+  <select id="selectPersonVoAll" parameterType="com.junyang.security.person.vo.QueryPersonVo" resultMap="personVoAll">
+  		 select 
+	       t1.P_ID   as P_ID,
+	       t1.P_CODE as P_CODE,
+	       t1.P_NAME as P_NAME,
+	       t1.P_CARD as P_CARD,
+	       t1.P_SEX  as P_SEX,
+	       t1.P_BIRTH as P_BIRTH,
+	       t1.P_EMAIL as P_EMAIL,
+	       t1.P_NATIONAL as P_NATIONAL,
+	       t1.P_ADDRESS as P_ADDRESS,
+	       t1.P_TEL as P_TEL,
+	       t1.P_PHONE as P_PHONE,
+	       t1.P_IMG as P_IMG,
+	       t1.P_ENAME as P_ENAME,
+	       t1.P_LOGINNAME as P_LOGINNAME,
+	       t1.P_PASSWORD as P_PASSWORD,
+	       t1.STATE as P_STATE,
+	       t1.ORG_ID as ORG_ID,
+	       t2.O_NAME as ORG_NAME,
+	       t4.R_ID   as ROLE_ID,
+	       t4.R_NAME as ROLE_NAME,
+	       t4.STATE  as ROLE_STATE
+       from T_PERSON t1
+       left join T_ORGANIZATION t2  on t1.ORG_ID=t2.O_ID
+       left join T_PERSON_ROLE t3   on t3.P_ID = t1.P_ID
+       left join T_ROLE t4          on t4.R_ID = t3.R_ID 
+       <if test="queryPersonVo!=null">
+       	<where>
+       		<if test="queryPersonVo.qCode!=null and queryPersonVo.qCode!=''"> and t1.P_CODE = #{queryPersonVo.qCode,jdbcType=VARCHAR}</if>
+       		<if test="queryPersonVo.qPassWord!=null and queryPersonVo.qPassWord!=''"> and t1.P_PASSWORD = #{queryPersonVo.qCode,jdbcType=VARCHAR}</if>
+       	</where>
+       </if>
+  </select>
+</mapper>
