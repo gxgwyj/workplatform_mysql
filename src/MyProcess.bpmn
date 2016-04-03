@@ -5,8 +5,7 @@
              xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
              xmlns:activiti="http://activiti.org/bpmn">
 
-  <process id="vacationRequest" name="Vacation request">
-
+  <process id="vacationRequest" name="请假流程">
     <startEvent id="request" activiti:initiator="employeeName">
       <extensionElements>
         <activiti:formProperty id="numberOfDays" name="Number of days" type="long" value="1" required="true"/>
@@ -15,13 +14,12 @@
       </extensionElements>
     </startEvent>
     <sequenceFlow id="flow1" sourceRef="request" targetRef="handleRequest" />
-
-    <userTask id="handleRequest" name="Handle vacation request" >
+    <userTask id="handleRequest" name="部门领导审批" >
       <documentation>
-        ${employeeName} would like to take ${numberOfDays} day(s) of vacation (Motivation: ${vacationMotivation}).
+        ${employeeName} 想 请  ${numberOfDays} 天假  (原因: ${vacationMotivation}).
       </documentation>
       <extensionElements>
-         <activiti:formProperty id="vacationApproved" name="Do you approve this vacation" type="enum" required="true">
+         <activiti:formProperty id="vacationApproved" name="是否通过" type="enum" required="true">
           <activiti:value id="true" name="Approve" />
           <activiti:value id="false" name="Reject" />
         </activiti:formProperty>
@@ -35,12 +33,12 @@
     </userTask>
     <sequenceFlow id="flow2" sourceRef="handleRequest" targetRef="requestApprovedDecision" />
 
-    <exclusiveGateway id="requestApprovedDecision" name="Request approved?" />
+    <exclusiveGateway id="requestApprovedDecision" name="部门经理是否通过？" />
     <sequenceFlow id="flow3" sourceRef="requestApprovedDecision" targetRef="sendApprovalMail">
       <conditionExpression xsi:type="tFormalExpression">${vacationApproved == 'true'}</conditionExpression>
     </sequenceFlow>
 
-    <task id="sendApprovalMail" name="Send confirmation e-mail" />
+    <task id="sendApprovalMail" name="发送确认邮件？" />
     <sequenceFlow id="flow4" sourceRef="sendApprovalMail" targetRef="theEnd1" />
     <endEvent id="theEnd1" />
 
@@ -48,10 +46,10 @@
       <conditionExpression xsi:type="tFormalExpression">${vacationApproved == 'false'}</conditionExpression>
     </sequenceFlow>
 
-    <userTask id="adjustVacationRequestTask" name="Adjust vacation request">
+    <userTask id="adjustVacationRequestTask" name="请假申请驳回">
       <documentation>
-        Your manager has disapproved your vacation request for ${numberOfDays} days.
-        Reason: ${managerMotivation}
+                        您的部门经理  没有通过您的 ${numberOfDays}天假期。
+                         原因: ${managerMotivation}
       </documentation>
       <extensionElements>
         <activiti:formProperty id="numberOfDays" name="Number of days" value="${numberOfDays}" type="long" required="true"/>
@@ -70,7 +68,7 @@
     </userTask>
     <sequenceFlow id="flow6" sourceRef="adjustVacationRequestTask" targetRef="resendRequestDecision" />
 
-    <exclusiveGateway id="resendRequestDecision" name="Resend request?" />
+    <exclusiveGateway id="resendRequestDecision" name="重新申请请假？" />
     <sequenceFlow id="flow7" sourceRef="resendRequestDecision" targetRef="handleRequest">
       <conditionExpression xsi:type="tFormalExpression">${resendRequest == 'true'}</conditionExpression>
     </sequenceFlow>
@@ -79,7 +77,6 @@
       <conditionExpression xsi:type="tFormalExpression">${resendRequest == 'false'}</conditionExpression>
     </sequenceFlow>
     <endEvent id="theEnd2" />
-
   </process>
 
 </definitions>

@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.junyang.oa.dao.LeaveMapper" >
+  <resultMap id="BaseResultMap" type="com.junyang.oa.model.Leave" >
+    <id column="ID" property="id" jdbcType="VARCHAR" />
+    <result column="APPLY_TIME" property="applyTime" jdbcType="DATE" />
+    <result column="END_TIME" property="endTime" jdbcType="DATE" />
+    <result column="LEAVE_TYPE" property="leaveType" jdbcType="VARCHAR" />
+    <result column="PROCESS_INSTANCE_ID" property="processInstanceId" jdbcType="VARCHAR" />
+    <result column="REALITY_END_TIME" property="realityEndTime" jdbcType="DATE" />
+    <result column="REALITY_START_TIME" property="realityStartTime" jdbcType="DATE" />
+    <result column="REASON" property="reason" jdbcType="VARCHAR" />
+    <result column="START_TIME" property="startTime" jdbcType="DATE" />
+    <result column="USER_ID" property="userId" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    ID, APPLY_TIME, END_TIME, LEAVE_TYPE, PROCESS_INSTANCE_ID, REALITY_END_TIME, REALITY_START_TIME, 
+    REASON, START_TIME, USER_ID
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 'true' as QUERYID,
+    <include refid="Base_Column_List" />
+    from OA_LEAVE
+    where ID = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from OA_LEAVE
+    where ID = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.junyang.oa.model.Leave" >
+    insert into OA_LEAVE (ID, APPLY_TIME, END_TIME, 
+      LEAVE_TYPE, PROCESS_INSTANCE_ID, REALITY_END_TIME, 
+      REALITY_START_TIME, REASON, START_TIME, 
+      USER_ID)
+    values (#{id,jdbcType=VARCHAR}, #{applyTime,jdbcType=DATE}, #{endTime,jdbcType=DATE}, 
+      #{leaveType,jdbcType=VARCHAR}, #{processInstanceId,jdbcType=VARCHAR}, #{realityEndTime,jdbcType=DATE}, 
+      #{realityStartTime,jdbcType=DATE}, #{reason,jdbcType=VARCHAR}, #{startTime,jdbcType=DATE}, 
+      #{userId,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.junyang.oa.model.Leave" >
+    insert into OA_LEAVE
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        ID,
+      </if>
+      <if test="applyTime != null" >
+        APPLY_TIME,
+      </if>
+      <if test="endTime != null" >
+        END_TIME,
+      </if>
+      <if test="leaveType != null" >
+        LEAVE_TYPE,
+      </if>
+      <if test="processInstanceId != null" >
+        PROCESS_INSTANCE_ID,
+      </if>
+      <if test="realityEndTime != null" >
+        REALITY_END_TIME,
+      </if>
+      <if test="realityStartTime != null" >
+        REALITY_START_TIME,
+      </if>
+      <if test="reason != null" >
+        REASON,
+      </if>
+      <if test="startTime != null" >
+        START_TIME,
+      </if>
+      <if test="userId != null" >
+        USER_ID,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="applyTime != null" >
+        #{applyTime,jdbcType=DATE},
+      </if>
+      <if test="endTime != null" >
+        #{endTime,jdbcType=DATE},
+      </if>
+      <if test="leaveType != null" >
+        #{leaveType,jdbcType=VARCHAR},
+      </if>
+      <if test="processInstanceId != null" >
+        #{processInstanceId,jdbcType=VARCHAR},
+      </if>
+      <if test="realityEndTime != null" >
+        #{realityEndTime,jdbcType=DATE},
+      </if>
+      <if test="realityStartTime != null" >
+        #{realityStartTime,jdbcType=DATE},
+      </if>
+      <if test="reason != null" >
+        #{reason,jdbcType=VARCHAR},
+      </if>
+      <if test="startTime != null" >
+        #{startTime,jdbcType=DATE},
+      </if>
+      <if test="userId != null" >
+        #{userId,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.junyang.oa.model.Leave" >
+    update OA_LEAVE
+    <set >
+      <if test="applyTime != null" >
+        APPLY_TIME = #{applyTime,jdbcType=DATE},
+      </if>
+      <if test="endTime != null" >
+        END_TIME = #{endTime,jdbcType=DATE},
+      </if>
+      <if test="leaveType != null" >
+        LEAVE_TYPE = #{leaveType,jdbcType=VARCHAR},
+      </if>
+      <if test="processInstanceId != null" >
+        PROCESS_INSTANCE_ID = #{processInstanceId,jdbcType=VARCHAR},
+      </if>
+      <if test="realityEndTime != null" >
+        REALITY_END_TIME = #{realityEndTime,jdbcType=DATE},
+      </if>
+      <if test="realityStartTime != null" >
+        REALITY_START_TIME = #{realityStartTime,jdbcType=DATE},
+      </if>
+      <if test="reason != null" >
+        REASON = #{reason,jdbcType=VARCHAR},
+      </if>
+      <if test="startTime != null" >
+        START_TIME = #{startTime,jdbcType=DATE},
+      </if>
+      <if test="userId != null" >
+        USER_ID = #{userId,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.junyang.oa.model.Leave" >
+    update OA_LEAVE
+    set APPLY_TIME = #{applyTime,jdbcType=DATE},
+      END_TIME = #{endTime,jdbcType=DATE},
+      LEAVE_TYPE = #{leaveType,jdbcType=VARCHAR},
+      PROCESS_INSTANCE_ID = #{processInstanceId,jdbcType=VARCHAR},
+      REALITY_END_TIME = #{realityEndTime,jdbcType=DATE},
+      REALITY_START_TIME = #{realityStartTime,jdbcType=DATE},
+      REASON = #{reason,jdbcType=VARCHAR},
+      START_TIME = #{startTime,jdbcType=DATE},
+      USER_ID = #{userId,jdbcType=VARCHAR}
+    where ID = #{id,jdbcType=VARCHAR}
+  </update>
+</mapper>

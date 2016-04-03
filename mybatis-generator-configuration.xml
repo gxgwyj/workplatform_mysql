@@ -3,7 +3,7 @@
   PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
   "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
 <generatorConfiguration>
-  <classPathEntry location="E:\eclipse4.2\workspace\OA\ojdbc14-10.2.0.4.0.jar" />
+  <classPathEntry location="E:\eclipse4.2\workspace\workplatform\ojdbc14-10.2.0.4.0.jar" />
   <context id="orclTables" targetRuntime="MyBatis3">
     <commentGenerator>  
     <property name="suppressAllComments" value="true" />
@@ -13,18 +13,17 @@
     <javaTypeResolver >
       <property name="forceBigDecimals" value="false" />
     </javaTypeResolver>
-    <javaModelGenerator targetPackage="com.junyang.security.dao.model"   targetProject="E:\eclipse4.2\workspace\OA\src" >
-      <property name="" value=""/>
+    <javaModelGenerator targetPackage="com.junyang.oa.model"   targetProject="E:\eclipse4.2\workspace\workplatform\src" >
       <property name="enableSubPackages" value="true" />
       <property name="trimStrings" value="true" />
     </javaModelGenerator>
-    <sqlMapGenerator targetPackage="com.junyang.security.role.dao" targetProject="E:\eclipse4.2\workspace\OA\src" >
+    <sqlMapGenerator targetPackage="com.junyang.oa.dao" targetProject="E:\eclipse4.2\workspace\workplatform\src" >
       <property name="enableSubPackages" value="true" />
     </sqlMapGenerator>
-    <javaClientGenerator type="XMLMAPPER" targetPackage="com.junyang.security.role.dao" targetProject="E:\eclipse4.2\workspace\OA\src" >
+    <javaClientGenerator type="XMLMAPPER" targetPackage="com.junyang.oa.dao" targetProject="E:\eclipse4.2\workspace\workplatform\src" >
       <property name="enableSubPackages" value="true" />
     </javaClientGenerator>
-    <table  tableName="T_PERSON_ROLE"  domainObjectName ="PersonRole" enableUpdateByPrimaryKey="true" selectByPrimaryKeyQueryId="true" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false">
+    <table  tableName="OA_LEAVE"  domainObjectName ="Leave" enableUpdateByPrimaryKey="true" selectByPrimaryKeyQueryId="true" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false">
     </table>
 
   </context>

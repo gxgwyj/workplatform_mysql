@@ -15,9 +15,11 @@ import org.activiti.engine.repository.ProcessDefinitionQuery;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.junyang.common.Constants;
 import com.junyang.common.model.page.Page;
@@ -77,6 +79,18 @@ public class ActivitiController {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-    	  
       }
+      @RequestMapping(value="processdefinition/update/{state}/{processDefinitionId}")
+      public String  updateState(@PathVariable("state") String state, @PathVariable("processDefinitionId") String processDefinitionId,
+              RedirectAttributes redirectAttributes){
+    	  if("active".equals(state)){//激活流程
+    		  repositoryService.activateProcessDefinitionById(processDefinitionId,true,null);
+    		  redirectAttributes.addFlashAttribute("message", "已激活ID为[" + processDefinitionId + "]的流程定义。");
+    	  }else if("suspend".equals(state)){//挂起流程
+    		  repositoryService.suspendProcessDefinitionById(processDefinitionId,true,null);
+    		  redirectAttributes.addFlashAttribute("message", "已挂起ID为[" + processDefinitionId + "]的流程定义。");
+    	  }
+    	  return "redirect:/workflow/processList";
+      }
+      
 }

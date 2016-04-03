@@ -54,7 +54,15 @@
        <td style="text-align: center;">
        <fmt:formatDate value="${deployment.deploymentTime}" pattern="yyyy-MM-dd HH:mm:ss" />
        </td>  
-       <td style="text-align: center;">${definition.suspended}</td>    
+       <td style="text-align: center;">
+       ${process.suspended}|
+       <c:if test="${!process.suspended}">
+       <a href="processdefinition/update/suspend/${process.id}">挂起</a>
+       </c:if>
+       <c:if test="${process.suspended}">
+       <a href="processdefinition/update/active/${process.id}">激活</a>
+       </c:if>
+       </td>    
        <td style="text-align: center;" >
        		<a>【编辑】</a>
        	</td>  
@@ -66,6 +74,9 @@
 </form>
 </body>
 <script type="text/javascript">
+<c:if test="${not empty message}">
+	alert("${message}");
+</c:if>
 function queryData(){
 	document.forms[0].submit();
 }
