@@ -80,9 +80,10 @@ public class ActivitiController {
 			e.printStackTrace();
 		}
       }
-      @RequestMapping(value="processdefinition/update/{state}/{processDefinitionId}")
-      public String  updateState(@PathVariable("state") String state, @PathVariable("processDefinitionId") String processDefinitionId,
-              RedirectAttributes redirectAttributes){
+      @RequestMapping(value="processdefinition/update")
+      public String  updateState(RedirectAttributes redirectAttributes,HttpServletRequest  request){
+    	  String processDefinitionId = request.getParameter("processDefinitionId");
+    	  String state = request.getParameter("state");
     	  if("active".equals(state)){//激活流程
     		  repositoryService.activateProcessDefinitionById(processDefinitionId,true,null);
     		  redirectAttributes.addFlashAttribute("message", "已激活ID为[" + processDefinitionId + "]的流程定义。");
@@ -90,7 +91,7 @@ public class ActivitiController {
     		  repositoryService.suspendProcessDefinitionById(processDefinitionId,true,null);
     		  redirectAttributes.addFlashAttribute("message", "已挂起ID为[" + processDefinitionId + "]的流程定义。");
     	  }
-    	  return "redirect:/workflow/processList";
+    	  return "redirect:/workflow/processList.do";
       }
       
 }

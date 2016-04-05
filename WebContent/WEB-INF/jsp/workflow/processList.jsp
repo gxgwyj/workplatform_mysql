@@ -57,10 +57,10 @@
        <td style="text-align: center;">
        ${process.suspended}|
        <c:if test="${!process.suspended}">
-       <a href="processdefinition/update/suspend/${process.id}">挂起</a>
+       <a href="processdefinition/update.do?state=suspend&processDefinitionId=${process.id}">挂起</a>
        </c:if>
        <c:if test="${process.suspended}">
-       <a href="processdefinition/update/active/${process.id}">激活</a>
+       <a href="processdefinition/update.do?state=active&processDefinitionId=${process.id}">激活</a>
        </c:if>
        </td>    
        <td style="text-align: center;" >

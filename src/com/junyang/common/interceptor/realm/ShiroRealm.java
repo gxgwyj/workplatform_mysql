@@ -85,7 +85,6 @@ public class ShiroRealm extends AuthorizingRealm{
 			Subject  currentUser = SecurityUtils.getSubject();//，获取当前的用户
 			Session session = currentUser.getSession();
 			session.setAttribute(Constants.SESSION_USER, personVo);
-			System.out.println(getName());
 			return new SimpleAuthenticationInfo(personVo.getCode(),personVo.getPassword(),getName());
 		}
 		return null;

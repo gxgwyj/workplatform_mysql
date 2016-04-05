@@ -54,7 +54,6 @@ public class LoginAction {
 		LoginMsg loginMsg = new LoginMsg();
 		if(code!=null && pwd!=null){
 			Subject subject = SecurityUtils.getSubject();
-			Session session = subject.getSession();
 			UsernamePasswordToken token = new UsernamePasswordToken(code, pwd); //shiro加入身份验证
 			try {
 				subject.login(token);
