@@ -13,12 +13,17 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.junyang.common.Constants;
 import com.junyang.common.model.page.Page;
+import com.junyang.common.util.ControllerUtil;
+import com.junyang.oa.model.Leave;
+import com.junyang.security.person.model.Person;
+import com.junyang.security.person.vo.PersonVo;
 
 
 @Controller
 @RequestMapping(value = "/oa/leave")
 public class LeaveController {
 	private static final String LEAVE_LIST_VIEW="oa/leave/leaveList";
+	private static final String LEAVE_FORM_VIEW="oa/leave/leaveEdit";
 	
 	@RequestMapping(value="myleaveList")
 	private ModelAndView myleaveList(@ModelAttribute("page") Page page,HttpServletRequest request){
@@ -31,6 +36,25 @@ public class LeaveController {
 		map.put("list", list);
 		map.put("page", page);
 		return new ModelAndView(LEAVE_LIST_VIEW,map);
+	}
+	/**
+	 * 新建请假申请
+	 * @return
+	 */
+	@RequestMapping("creatForm")
+	private ModelAndView creatForm(){
+		return new ModelAndView(LEAVE_FORM_VIEW);
+	}
+	/**
+	 * 启动请假流程
+	 * @param leave
+	 * @return
+	 */
+	@RequestMapping("startLeave")
+	private ModelAndView startLeave(@ModelAttribute("leave") Leave leave){
+		PersonVo person = ControllerUtil.getCurrentUser();
+		leave.setUserId(person.getId());
+		return new ModelAndView(LEAVE_FORM_VIEW);
 	}
 
 }

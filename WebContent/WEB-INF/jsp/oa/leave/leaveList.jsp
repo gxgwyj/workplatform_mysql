@@ -6,14 +6,8 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <link href="<%=path%>/res/css/style.css" rel="stylesheet" type="text/css" />
-<link rel="stylesheet" type="text/css" href="<%=path%>/res/jquery-easyui-1.4.4/themes/default/easyui.css">
-<link rel="stylesheet" type="text/css" href="<%=path%>/res/jquery-easyui-1.4.4/themes/icon.css">
-<link rel="stylesheet" type="text/css" href="<%=path%>/res/zTree_v3/css/zTreeStyle/zTreeStyle.css" >
 <%@include file="/WEB-INF/jsp/common/js.jsp" %>
-<script type="text/javascript" src="<%=path%>/res/zTree_v3/js/jquery.ztree.core-3.5.js"></script>
-<script type="text/javascript" src="<%=path%>/res/zTree_v3/js/jquery.ztree.excheck-3.5.js"></script>
-<script type="text/javascript" src="<%=path%>/res/jquery-easyui-1.4.4/jquery.easyui.min.js"></script>
-<title>角色列表</title>
+<title>请假列表</title>
 </head>
 <body>
 <form action="<%=path%>/security/role/roleList.do" method="post">
@@ -26,19 +20,22 @@
   </table>	
 </div>
 <div class="toolBarForm">
-  <input type="button" class="toolBarbtn" value="添加" onclick="addData();"  >
-  <input type="button" class="toolBarbtn"  value="删除" onclick="deleteData();">
-  <input type="button" class="toolBarbtn"  value="导出">
+  <input type="button" class="toolBarbtn" value="新建请假" onclick="addData();"  >
 </div>
 <div class="dataMain">
 <table  class="datalist" style="width: 100%;">  
     <tr>  
-       <th style="width:5%;"><input type="checkbox" onclick="checkAll(this,'rId');"/></th> 
-       <th>角色名称</th>  
-       <th>状态</th>
-       <th>操作</th>  
+       <th style="width:5%;"><input type="checkbox" onclick="checkAll(this,'leId');"/></th> 
+       <th>类型</th>  
+       <th>申请人</th>
+       <th>申请时间</th>
+       <th>开始时间</th>
+       <th>结束时间</th>
+       <th>当前节点</th>   
+       <th>流程状态</th>
+       <th>当前处理人</th>
    </tr>  
-   <c:forEach  items="${roleList}" var="role">
+   <c:forEach  items="${myleaveList}" var="role">
    	  <tr>  
    	   <td style="text-align: center;"><input type="checkbox"  name="rId" value="${role.rId}" /></td>
        <td style="text-align: center;">${role.rName}</td>  
@@ -65,47 +62,11 @@
 </div>
 </body>
 <script type="text/javascript">
-//定义树对象
-var zTreeObject;
-var roleId="";
-//setting 配置
-var setting={
-   treeId:"ztree1",
-   view:{showLine: true,showIcon:true},
-   data:{simpleData:{enable: true,idKey:"id",pIdKey: "pId"}},
-	check:{
-		enable: true,
-    	chkStyle: "checkbox",
-    	chkboxType: { "Y": "ps", "N": "ps" }
- }
-};
 function queryData(){
 	document.forms[0].submit();
 }
-function deleteData(){
-	if($("input[name='rId']:checked").length==0){
-		alert("请选择要删除的数据！");
-		return;
-	}
-	$.ajax({
-	 	type:'POST', 
-	 	async:false,
-        url:"<%=path%>/security/role/roleRemove.do",
-        dataType:"text",
-        data:$("form").serialize(),
-       	success: function(result){
-           	if("success"==result){
-           		$("form").submit();
-           	}
-   	    }
-		
-	});
-}
-function editData(id){
-	window.location.href="<%=path%>/security/role/roleEdit.do?id="+id;	
-}
 function addData(){
-	window.location.href="<%=path%>/security/role/roleEdit.do";	
+	window.location.href="<%=path%>/oa/leave/creatForm.do";	
 }
 function editMenu(id){
 	roleId = id;
