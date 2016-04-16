@@ -1,6 +1,5 @@
 package com.junyang.security.login.model;
 
-import com.junyang.security.person.model.Person;
 
 /**
  * 

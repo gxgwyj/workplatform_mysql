@@ -2,11 +2,9 @@ package com.junyang.common.util;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.HashMap;
 
 import org.codehaus.jackson.map.ObjectMapper;
-
-import com.junyang.security.menu.model.Menu;
+import com.junyang.security.model.Menu;
 
 public class JsonUtil {
 	

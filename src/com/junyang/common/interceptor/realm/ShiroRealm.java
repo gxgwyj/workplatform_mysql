@@ -19,11 +19,12 @@ import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.junyang.common.Constants;
-import com.junyang.security.menu.model.Menu;
-import com.junyang.security.person.service.PersonService;
-import com.junyang.security.person.vo.PersonVo;
-import com.junyang.security.person.vo.QueryPersonVo;
-import com.junyang.security.role.model.Role;
+import com.junyang.security.model.Menu;
+import com.junyang.security.model.Role;
+import com.junyang.security.service.PersonService;
+import com.junyang.security.vo.PersonVo;
+import com.junyang.security.vo.QueryPersonVo;
+
 /**
  *Realm充当了Shiro与应用安全数据间的“桥梁”或者“连接器”。也就是说，当对用户执行认证（登录）和授权（访问控制）验证时，
  *Shiro会从应用配置的Realm中查找用户及其权限信息。

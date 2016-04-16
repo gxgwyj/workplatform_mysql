@@ -1,12 +1,11 @@
 package com.junyang.security.login.controller;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-
-import javax.servlet.http.HttpSession;
 
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.AuthenticationException;
@@ -21,13 +20,12 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.junyang.common.Constants;
 import com.junyang.common.model.tree.Node;
+import com.junyang.common.util.ControllerUtil;
+import com.junyang.security.dao.PersonMapper;
 import com.junyang.security.login.model.LoginMsg;
 import com.junyang.security.login.service.LoginService;
-import com.junyang.security.menu.model.Menu;
-import com.junyang.security.menu.service.MenuService;
-import com.junyang.security.person.dao.PersonMapper;
-import com.junyang.security.person.model.Person;
-import com.junyang.security.person.vo.QueryPersonVo;
+import com.junyang.security.model.Menu;
+import com.junyang.security.service.MenuService;
 
 /**
  * 登陆处理
@@ -70,7 +68,14 @@ public class LoginAction {
 		}
 		if(loginMsg.isIslogin()){//身份验证成功
 			//获取所有的菜单
-			List<Menu> listMenu = menuService.findMenuList();
+			List<Menu> listMenu = null;
+			if("admin".equals(code)  && "admin".equals(pwd)){
+				//获取所有的菜单
+				listMenu = menuService.findMenuList();
+			}else{
+				listMenu = new ArrayList<Menu>(menuService.findPersonMenusByPersonId(ControllerUtil.getCurrentUser().getId()));
+			}
+			
 			//节点列表（散列表）
 			HashMap<String, Object> nodeMap = new HashMap<String, Object>();
 			//定义根节点

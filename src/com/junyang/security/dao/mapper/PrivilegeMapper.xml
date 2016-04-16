@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.junyang.security.dao.PrivilegeMapper" >
+  <resultMap id="BaseResultMap" type="com.junyang.security.model.Privilege" >
+    <id column="P_ID" property="pId" jdbcType="VARCHAR" />
+    <result column="P_MASTER" property="pMaster" jdbcType="VARCHAR" />
+    <result column="P_MASTERVALUE" property="pMastervalue" jdbcType="VARCHAR" />
+    <result column="P_MID" property="pMid" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    P_ID, P_MASTER, P_MASTERVALUE, P_MID
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 'true' as QUERYID,
+    <include refid="Base_Column_List" />
+    from T_PRIVILEGE
+    where P_ID = #{pId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from T_PRIVILEGE
+    where P_ID = #{pId,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.junyang.security.model.Privilege" >
+   	<!--使用javaUUID作为主键，使用ognl表达式（这个方法比较模糊）-->
+    <bind name="javaUUID" value="@com.junyang.common.util.PrimaryKeyManager@getPrimaryKey()"/>
+    insert into T_PRIVILEGE (P_ID, P_MASTER, P_MASTERVALUE, 
+      P_MID)
+    values (#{javaUUID,jdbcType=VARCHAR}, #{pMaster,jdbcType=VARCHAR}, #{pMastervalue,jdbcType=VARCHAR}, 
+      #{pMid,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.junyang.security.model.Privilege" >
+  	<!--使用javaUUID作为主键，使用ognl表达式（这个方法比较模糊）-->
+    <bind name="javaUUID" value="@com.junyang.common.util.PrimaryKeyManager@getPrimaryKey()"/>
+    insert into T_PRIVILEGE
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      #{javaUUID,jdbcType=VARCHAR},
+      <if test="pMaster != null" >
+        P_MASTER,
+      </if>
+      <if test="pMastervalue != null" >
+        P_MASTERVALUE,
+      </if>
+      <if test="pMid != null" >
+        P_MID,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="pId != null" >
+        #{pId,jdbcType=VARCHAR},
+      </if>
+      <if test="pMaster != null" >
+        #{pMaster,jdbcType=VARCHAR},
+      </if>
+      <if test="pMastervalue != null" >
+        #{pMastervalue,jdbcType=VARCHAR},
+      </if>
+      <if test="pMid != null" >
+        #{pMid,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.junyang.security.model.Privilege" >
+    update T_PRIVILEGE
+    <set >
+      <if test="pMaster != null" >
+        P_MASTER = #{pMaster,jdbcType=VARCHAR},
+      </if>
+      <if test="pMastervalue != null" >
+        P_MASTERVALUE = #{pMastervalue,jdbcType=VARCHAR},
+      </if>
+      <if test="pMid != null" >
+        P_MID = #{pMid,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where P_ID = #{pId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.junyang.security.model.Privilege" >
+    update T_PRIVILEGE
+    set P_MASTER = #{pMaster,jdbcType=VARCHAR},
+      P_MASTERVALUE = #{pMastervalue,jdbcType=VARCHAR},
+      P_MID = #{pMid,jdbcType=VARCHAR}
+    where P_ID = #{pId,jdbcType=VARCHAR}
+  </update>
+  <delete id="deleteByRoleIdAndMenuIds">
+        delete from T_PRIVILEGE
+    	where P_MASTERVALUE = #{roleId,jdbcType=VARCHAR}  and P_MASTER ='role'
+    	<if test="menuIds!=null and menuIds.length!=0">
+    		and  P_MID not in
+    		<foreach item="item" index="index" collection="menuIds" open="(" separator="," close=")">  
+  			#{item}  
+ 			</foreach>  
+    	</if>
+  </delete>
+</mapper>

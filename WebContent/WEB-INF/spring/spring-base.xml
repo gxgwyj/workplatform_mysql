@@ -40,7 +40,7 @@
     <!--mybatis全局配置文件，必须加，否则分页拦截不起作用-->  
     <property name="configLocation" value="classpath:mybatis-config.xml" />  
     <!--加载所有的mapper文件-->
-    <property name="mapperLocations" value="classpath:com/junyang/**/dao/*.xml"></property>
+    <property name="mapperLocations" value="classpath:com/junyang/**/dao/mapper/*.xml"></property>
 </bean>
 <!-- 自动扫描mapper接口,交给spring容器管理 -->  
 <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">

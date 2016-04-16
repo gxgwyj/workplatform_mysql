@@ -8,11 +8,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.junyang.common.util.StringUtil;
+import com.junyang.security.dao.PersonMapper;
 import com.junyang.security.login.model.LoginMsg;
 import com.junyang.security.login.service.LoginService;
-import com.junyang.security.person.dao.PersonMapper;
-import com.junyang.security.person.model.Person;
-import com.junyang.security.person.vo.QueryPersonVo;
+import com.junyang.security.model.Person;
+import com.junyang.security.vo.QueryPersonVo;
 @Service
 @WebService(endpointInterface="com.junyang.security.login.service.LoginService")
 public class LoginServiceImpl implements LoginService {

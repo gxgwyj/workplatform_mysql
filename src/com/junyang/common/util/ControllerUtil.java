@@ -5,7 +5,7 @@ import org.apache.shiro.session.Session;
 import org.apache.shiro.subject.Subject;
 
 import com.junyang.common.Constants;
-import com.junyang.security.person.vo.PersonVo;
+import com.junyang.security.vo.PersonVo;
 
 public class ControllerUtil {
 	public static PersonVo  getCurrentUser(){

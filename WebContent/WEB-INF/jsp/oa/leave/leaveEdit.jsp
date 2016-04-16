@@ -13,7 +13,7 @@
 <script type="text/javascript" src="<%=path%>/res/My97DatePicker/WdatePicker.js"></script>
 </head>
 <body>
-<form action="<%=path%>/security/role/roleSave.do" id="signupForm" method="post" >
+<form  id="signupForm" method="post" >
 <div align="center">
 	<table  class="form_table" >
 		<tr>
@@ -37,26 +37,26 @@
 		<tr>
 			<th>开始时间：</th>
 			<td>
-				<input type="text"  class="Wdate" onFocus="WdatePicker();"  id="birth" name="birth" value="<fmt:formatDate value="${personVo.birth}" pattern="yyyy-MM-dd" />" style="cursor: pointer;"/>
+				<input type="text"  class="Wdate" onFocus="WdatePicker();"  id="startTime" name="startTime" value="<fmt:formatDate value="${personVo.birth}" pattern="yyyy-MM-dd" />" style="cursor: pointer;"/>
 			</td>
 		</tr>
 		<tr>
 			<th>结束时间：</th>
 			<td>
-				<input type="text"  class="Wdate" onFocus="WdatePicker();"  id="birth" name="birth" value="<fmt:formatDate value="${personVo.birth}" pattern="yyyy-MM-dd" />" style="cursor: pointer;"/>
+				<input type="text"  class="Wdate" onFocus="WdatePicker();"  id="endTime" name="endTime" value="<fmt:formatDate value="${personVo.birth}" pattern="yyyy-MM-dd" />" style="cursor: pointer;"/>
 			</td>
 		</tr>
 		<tr>
 			<th>请假原因：</th>
 			<td>
-				<textarea rows="10" cols="50"></textarea>
+				<textarea rows="10" cols="50" name="reason" ></textarea>
 			</td>
 		</tr>
 	</table>
 </div>
 <div align="center">
-	<input type="button" class="toolBarbtn" onclick="saveRole();" value="保存"/>
-	<input type="button" class="toolBarbtn" onclick="goBack();" value="申请"/>
+	<input type="button" class="toolBarbtn"  value="保存"/>
+	<input type="button" class="toolBarbtn" onclick="apply();" value="申请"/>
 	<input type="button" class="toolBarbtn" onclick="goBack();" value="返回"/>
 </div>
 </form>
@@ -68,13 +68,9 @@
 	function goBack(){
 		window.location.href="<%=path%>/security/role/roleList.do";
 	}
-	$("#signupForm").validate({
-		rules: {
-			rName: "required"
-		},
-		messages: {
-			rName: "角色名称不能为空！"
-		}
-	});
+	function apply(){
+		alert("321");
+		$("form").attr("action","<%=path%>/oa/leave/startLeave.do").submit();
+	}
 </script>
 </html>

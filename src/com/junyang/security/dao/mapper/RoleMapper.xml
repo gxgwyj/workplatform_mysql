@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.junyang.security.dao.RoleMapper" >
+  <resultMap id="BaseResultMap" type="com.junyang.security.model.Role" >
+    <id column="R_ID" property="rId" jdbcType="VARCHAR" />
+    <result column="R_NAME" property="rName" jdbcType="VARCHAR" />
+    <result column="STATE" property="state" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    R_ID, R_NAME, STATE
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 'true' as QUERYID,
+    <include refid="Base_Column_List" />
+    from T_ROLE
+    where R_ID = #{rId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from T_ROLE
+    where R_ID = #{rId,jdbcType=VARCHAR}
+  </delete>
+  <!--使用javaUUID作为主键，使用ognl表达式（这个方法比较模糊）-->
+  <insert id="insert" parameterType="com.junyang.security.model.Role" >
+  <bind name="javaUUID" value="@com.junyang.common.util.PrimaryKeyManager@getPrimaryKey()"/>
+    insert into T_ROLE (R_ID, R_NAME, STATE
+      )
+    values (#{javaUUID,jdbcType=VARCHAR}, #{rName,jdbcType=VARCHAR}, #{state,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.junyang.security.model.Role" >
+  <bind name="javaUUID" value="@com.junyang.common.util.PrimaryKeyManager@getPrimaryKey()"/>
+    insert into T_ROLE
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      #{javaUUID,jdbcType=VARCHAR},
+      <if test="rName != null" >
+        R_NAME,
+      </if>
+      <if test="state != null" >
+        STATE,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="rId != null" >
+        #{rId,jdbcType=VARCHAR},
+      </if>
+      <if test="rName != null" >
+        #{rName,jdbcType=VARCHAR},
+      </if>
+      <if test="state != null" >
+        #{state,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.junyang.security.model.Role" >
+    update T_ROLE
+    <set >
+      <if test="rName != null" >
+        R_NAME = #{rName,jdbcType=VARCHAR},
+      </if>
+      <if test="state != null" >
+        STATE = #{state,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where R_ID = #{rId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.junyang.security.model.Role" >
+    update T_ROLE
+    set R_NAME = #{rName,jdbcType=VARCHAR},
+      STATE = #{state,jdbcType=VARCHAR}
+    where R_ID = #{rId,jdbcType=VARCHAR}
+  </update>
+  <select id="selectRolePage" resultMap="BaseResultMap" parameterType="com.junyang.security.vo.QueryRoleVo">
+       select * from T_ROLE 
+       <if test="queryRoleVo!=null">
+       	<where>
+       		<if test="queryRoleVo.qrName!=null and queryRoleVo.qrName!=''">and R_NAME like '%'||#{queryRoleVo.qrName}||'%'</if>
+       	</where>
+       </if>
+  </select>
+  <select id="selecPersonRoleByPersonId" resultMap="BaseResultMap" parameterType="java.lang.String">
+       select t1.* from T_ROLE t1 inner join T_PERSON_ROLE  t2  on t1.R_ID = t2.R_ID 
+       where t2.P_ID = #{0}
+  </select>
+  <select id="selectPersonNoRoleByPersonId" resultMap="BaseResultMap" parameterType="java.lang.String">
+       select * from T_ROLE 
+       where R_ID not in (select R_ID from T_PERSON_ROLE where P_ID = #{0})
+  </select>
+</mapper>

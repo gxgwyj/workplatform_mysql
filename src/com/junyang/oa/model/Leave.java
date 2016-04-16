@@ -2,11 +2,15 @@ package com.junyang.oa.model;
 
 import java.util.Date;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 public class Leave {
     private String id;
 
+    
     private Date applyTime;
 
+    @DateTimeFormat(pattern="yyyy-MM-dd") 
     private Date endTime;
 
     private String leaveType;
@@ -19,6 +23,7 @@ public class Leave {
 
     private String reason;
 
+    @DateTimeFormat(pattern="yyyy-MM-dd") 
     private Date startTime;
 
     private String userId;
