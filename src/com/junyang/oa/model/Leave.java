@@ -2,6 +2,10 @@ package com.junyang.oa.model;
 
 import java.util.Date;
 
+import org.activiti.engine.history.HistoricProcessInstance;
+import org.activiti.engine.repository.ProcessDefinition;
+import org.activiti.engine.runtime.ProcessInstance;
+import org.activiti.engine.task.Task;
 import org.springframework.format.annotation.DateTimeFormat;
 
 public class Leave {
@@ -22,8 +26,59 @@ public class Leave {
     private Date realityStartTime;
 
     private String reason;
+    
+    private String applyName;
+    public String getApplyName() {
+		return applyName;
+	}
 
-    @DateTimeFormat(pattern="yyyy-MM-dd") 
+	public void setApplyName(String applyName) {
+		this.applyName = applyName;
+	}
+
+	// 流程任务
+    private Task task;
+    // 运行中的流程实例
+    private ProcessInstance processInstance;
+    // 历史的流程实例
+    private HistoricProcessInstance historicProcessInstance;
+    // 流程定义
+    private ProcessDefinition processDefinition;
+
+    public ProcessDefinition getProcessDefinition() {
+		return processDefinition;
+	}
+
+	public void setProcessDefinition(ProcessDefinition processDefinition) {
+		this.processDefinition = processDefinition;
+	}
+
+	public Task getTask() {
+		return task;
+	}
+
+	public void setTask(Task task) {
+		this.task = task;
+	}
+
+	public ProcessInstance getProcessInstance() {
+		return processInstance;
+	}
+
+	public void setProcessInstance(ProcessInstance processInstance) {
+		this.processInstance = processInstance;
+	}
+
+	public HistoricProcessInstance getHistoricProcessInstance() {
+		return historicProcessInstance;
+	}
+
+	public void setHistoricProcessInstance(
+			HistoricProcessInstance historicProcessInstance) {
+		this.historicProcessInstance = historicProcessInstance;
+	}
+
+	@DateTimeFormat(pattern="yyyy-MM-dd") 
     private Date startTime;
 
     private String userId;

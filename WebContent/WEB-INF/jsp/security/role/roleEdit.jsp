@@ -22,6 +22,12 @@
 			</td>
 		</tr>
 		<tr>
+		<th>角色编码：</th>
+			<td>
+				<input type="text" class="textStyle" name="rCode" value="${role.rCode}"/>
+			</td>
+		</tr>
+		<tr>
 			<th>状态：</th>
 			<td>
 				<select name="state">

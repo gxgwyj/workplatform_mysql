@@ -3,12 +3,16 @@ package com.junyang.workflow.controller;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.activiti.bpmn.model.BpmnModel;
+import org.activiti.engine.ProcessEngineConfiguration;
 import org.activiti.engine.RepositoryService;
+import org.activiti.engine.RuntimeService;
 import org.activiti.engine.repository.Deployment;
 import org.activiti.engine.repository.ProcessDefinition;
 import org.activiti.engine.repository.ProcessDefinitionQuery;
@@ -29,6 +33,10 @@ public class ActivitiController {
 	  private static final String PROCESSDEF_LIST_ACTION="workflow/processList.do";
       @Autowired
       private  RepositoryService repositoryService;
+      @Autowired
+      private  RuntimeService runtimeService;
+      @Autowired
+      ProcessEngineConfiguration processEngineConfiguration;
       /**
        * 流程定义列表
        * @param request
@@ -92,6 +100,27 @@ public class ActivitiController {
     		  redirectAttributes.addFlashAttribute("message", "已挂起ID为[" + processDefinitionId + "]的流程定义。");
     	  }
     	  return "redirect:/workflow/processList.do";
+      }
+      @RequestMapping(value="process/getActiveActivityImage")
+      public void getActiveActivityImage(HttpServletRequest  request,HttpServletResponse response){
+    	  String pid = request.getParameter("pid");
+    	  String processDefineId = request.getParameter("pdid");
+           ProcessDefinition processDefinition = repositoryService.createProcessDefinitionQuery().processDefinitionId(processDefineId).singleResult();
+           BpmnModel bpmnModel = repositoryService.getBpmnModel(processDefineId);
+           List<String>  activeActivity = runtimeService.getActiveActivityIds(pid);
+           String activityFontName = processEngineConfiguration.getActivityFontName();//获得流程实例执行到的节点
+           String labelFontName = processEngineConfiguration.getLabelFontName();
+           InputStream imageStream =   processEngineConfiguration.getProcessDiagramGenerator().generateDiagram(bpmnModel,"png",activeActivity,Collections.<String>emptyList(),activityFontName,labelFontName,null,1.0);
+           // 输出资源内容到相应对象
+           byte[] b = new byte[1024];
+           int len;
+           try {
+			while ((len = imageStream.read(b, 0, 1024)) != -1) {
+			       response.getOutputStream().write(b, 0, len);
+			   }
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
       }
       
 }

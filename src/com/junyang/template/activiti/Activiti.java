@@ -23,7 +23,7 @@ public class Activiti {
 		ProcessEngine processEngine = ProcessEngines.getDefaultProcessEngine();
 		RepositoryService repositoryService = processEngine.getRepositoryService();
 		repositoryService.createDeployment()
-		  .addClasspathResource("MyProcess.bpmn")
+		  .addClasspathResource("leave.bpmn")
 		  .deploy();
 		System.out.println("====================流程部署完成!=====================");
 		/**

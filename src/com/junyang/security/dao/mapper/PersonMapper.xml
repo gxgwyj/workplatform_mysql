@@ -121,6 +121,10 @@
    		<include refid="selectPersonVo"></include>
         where  t1.P_ID = #{0}
   </select>
+  <select id="selectPersonVoByCode" resultMap="personVo" parameterType="java.lang.String">
+   		<include refid="selectPersonVo"></include>
+        where  t1.P_CODE = #{0}
+  </select>
   <update id="updateByPrimaryKeySelective" parameterType="com.junyang.security.model.Person" >
     update T_PERSON
     <set >

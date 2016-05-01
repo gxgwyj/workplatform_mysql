@@ -36,6 +36,11 @@ public class PersonServiceImpl implements PersonService {
 		return personVo;
 	}
 	@Override
+	public PersonVo getPersonVoByCode(String code) {
+		PersonVo personVo = personMapper.selectPersonVoByCode(code);
+		return personVo;
+	}
+	@Override
 	public void saveOrupdatePerson(Person person) {
 		if(StringUtil.isEmpty(person.getId())){
 			personMapper.insert(person);

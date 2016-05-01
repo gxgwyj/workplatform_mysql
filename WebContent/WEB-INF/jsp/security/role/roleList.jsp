@@ -34,14 +34,16 @@
 <table  class="datalist" style="width: 100%;">  
     <tr>  
        <th style="width:5%;"><input type="checkbox" onclick="checkAll(this,'rId');"/></th> 
-       <th>角色名称</th>  
+       <th>角色名称</th>
+       <th>角色编码</th>   
        <th>状态</th>
        <th>操作</th>  
    </tr>  
    <c:forEach  items="${roleList}" var="role">
    	  <tr>  
    	   <td style="text-align: center;"><input type="checkbox"  name="rId" value="${role.rId}" /></td>
-       <td style="text-align: center;">${role.rName}</td>  
+       <td style="text-align: center;">${role.rName}</td>
+       <td style="text-align: center;">${role.rCode}</td>    
        <td style="text-align: center;">
        <c:if test="${role.state eq 'enabled'}">启用</c:if>
        <c:if test="${role.state eq 'disabled'}"><font color="red">停用</font></c:if>

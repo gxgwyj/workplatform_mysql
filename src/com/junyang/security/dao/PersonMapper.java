@@ -48,6 +48,7 @@ public interface PersonMapper {
 	    * @return
 	    */
 	   PersonVo selectPersonVoById(String id);
+	   PersonVo selectPersonVoByCode(String code);
 	   List<PersonVo> selectPersonVoAll(@Param("queryPersonVo")QueryPersonVo queryPersonVo);
 	   /**
 	    * 更新用户

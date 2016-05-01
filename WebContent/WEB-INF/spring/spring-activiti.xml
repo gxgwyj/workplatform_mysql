@@ -22,6 +22,9 @@
          <property name="dataSource" ref="jdbcDataSource" />
          <!--spring管理实务-->
          <property name="transactionManager" ref="transactionManager" />
+         <!--解决生成图片乱码问题-->
+         <property name="activityFontName" value="宋体"/>  
+   		 <property name="labelFontName" value="宋体"/> 
     </bean>
 <!--activiti流程引擎-->
     <bean id="processEngine" class="org.activiti.spring.ProcessEngineFactoryBean">

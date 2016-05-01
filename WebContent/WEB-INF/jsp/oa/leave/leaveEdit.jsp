@@ -69,7 +69,6 @@
 		window.location.href="<%=path%>/security/role/roleList.do";
 	}
 	function apply(){
-		alert("321");
 		$("form").attr("action","<%=path%>/oa/leave/startLeave.do").submit();
 	}
 </script>

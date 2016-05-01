@@ -4,10 +4,11 @@
   <resultMap id="BaseResultMap" type="com.junyang.security.model.Role" >
     <id column="R_ID" property="rId" jdbcType="VARCHAR" />
     <result column="R_NAME" property="rName" jdbcType="VARCHAR" />
+    <result column="R_CODE" property="rCode" jdbcType="VARCHAR" />
     <result column="STATE" property="state" jdbcType="VARCHAR" />
   </resultMap>
   <sql id="Base_Column_List" >
-    R_ID, R_NAME, STATE
+    R_ID, R_NAME, STATE,R_CODE
   </sql>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
     select 'true' as QUERYID,
@@ -22,9 +23,9 @@
   <!--使用javaUUID作为主键，使用ognl表达式（这个方法比较模糊）-->
   <insert id="insert" parameterType="com.junyang.security.model.Role" >
   <bind name="javaUUID" value="@com.junyang.common.util.PrimaryKeyManager@getPrimaryKey()"/>
-    insert into T_ROLE (R_ID, R_NAME, STATE
+    insert into T_ROLE (R_ID, R_NAME, STATE,R_CODE
       )
-    values (#{javaUUID,jdbcType=VARCHAR}, #{rName,jdbcType=VARCHAR}, #{state,jdbcType=VARCHAR}
+    values (#{javaUUID,jdbcType=VARCHAR}, #{rName,jdbcType=VARCHAR}, #{state,jdbcType=VARCHAR},#{rCode,jdbcType=VARCHAR}
       )
   </insert>
   <insert id="insertSelective" parameterType="com.junyang.security.model.Role" >
@@ -38,6 +39,9 @@
       <if test="state != null" >
         STATE,
       </if>
+      <if test="rCode != null" >
+        R_CODE,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="rId != null" >
@@ -48,6 +52,9 @@
       </if>
       <if test="state != null" >
         #{state,jdbcType=VARCHAR},
+      </if>
+      <if test="rCode != null" >
+       #{rCode,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
@@ -60,13 +67,17 @@
       <if test="state != null" >
         STATE = #{state,jdbcType=VARCHAR},
       </if>
+       <if test="rCode != null" >
+       R_CODE = #{rCode,jdbcType=VARCHAR},
+      </if>
     </set>
     where R_ID = #{rId,jdbcType=VARCHAR}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.junyang.security.model.Role" >
     update T_ROLE
     set R_NAME = #{rName,jdbcType=VARCHAR},
-      STATE = #{state,jdbcType=VARCHAR}
+      STATE = #{state,jdbcType=VARCHAR},
+      R_CODE = #{rCode,jdbcType=VARCHAR}
     where R_ID = #{rId,jdbcType=VARCHAR}
   </update>
   <select id="selectRolePage" resultMap="BaseResultMap" parameterType="com.junyang.security.vo.QueryRoleVo">

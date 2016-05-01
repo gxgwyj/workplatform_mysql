@@ -24,8 +24,11 @@ public class RoleServiceImpl implements RoleService {
 	
 	@Override
 	public void saveOrUpdateRole(Role role) {
-		roleMapper.insert(role);
-		
+		if(role.getrId()!=null && !"".equals(role.getrId().trim())){
+			roleMapper.updateByPrimaryKey(role);
+		}else{
+			roleMapper.insert(role);
+		}
 	}
 
 	@Override

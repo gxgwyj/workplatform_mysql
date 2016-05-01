@@ -13,7 +13,7 @@
   <div id="pageTitle"  class="maintop">
      <span class="spanuser">
         <img src="<%=path%>/res/images/png/user.png" >
-        <font color="red" style="font-weight: bold;">${sessionScope.userInfo.name}</font>
+        <font color="red" style="font-weight: bold;">${sessionScope.sessionUser.name}</font>
      </span>
      <span class="spanbtn">
         <img  src="<%=path%>/res/images/png/logout.png" style="cursor: pointer;" title="退出登录" onclick="logout();">

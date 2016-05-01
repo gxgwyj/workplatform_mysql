@@ -56,5 +56,11 @@ public interface PersonService {
 	 * @return
 	 */
 	List<PersonVo> getPersonVo(QueryPersonVo queryPersonVo);
+	/**
+	 * 根据编码查询人员信息
+	 * @param code
+	 * @return
+	 */
+	public PersonVo getPersonVoByCode(String code);
       
 }

@@ -150,4 +150,28 @@
       USER_ID = #{userId,jdbcType=VARCHAR}
     where ID = #{id,jdbcType=VARCHAR}
   </update>
+  <resultMap id="leaveVoResultMap" type="com.junyang.oa.model.Leave" >
+    <id column="ID" property="id" jdbcType="VARCHAR" />
+    <result column="APPLY_TIME" property="applyTime" jdbcType="DATE" />
+    <result column="END_TIME" property="endTime" jdbcType="DATE" />
+    <result column="LEAVE_TYPE" property="leaveType" jdbcType="VARCHAR" />
+    <result column="PROCESS_INSTANCE_ID" property="processInstanceId" jdbcType="VARCHAR" />
+    <result column="REALITY_END_TIME" property="realityEndTime" jdbcType="DATE" />
+    <result column="REALITY_START_TIME" property="realityStartTime" jdbcType="DATE" />
+    <result column="REASON" property="reason" jdbcType="VARCHAR" />
+    <result column="START_TIME" property="startTime" jdbcType="DATE" />
+    <result column="USER_ID" property="userId" jdbcType="VARCHAR" />
+    <result column="P_NAME" property="applyName" jdbcType="VARCHAR" />
+  </resultMap>
+  <select id="selectLeaveVoList" parameterType="com.junyang.oa.vo.LeaveVo" resultMap="leaveVoResultMap">
+  	   SELECT 
+  	   		L.*,
+  	   		P.P_NAME
+  		FROM OA_LEAVE L
+  		LEFT JOIN T_PERSON P
+    	ON P.P_CODE = L.USER_ID
+    	<where>
+    		AND L.ID = #{id,jdbcType=VARCHAR}
+    	</where>
+  </select>
 </mapper>

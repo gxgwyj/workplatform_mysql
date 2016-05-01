@@ -4,6 +4,8 @@ public class Role {
     private String rId;
 
     private String rName;
+    
+    private String rCode;
 
     private String state;
 
@@ -27,7 +29,15 @@ public class Role {
         return state;
     }
 
-    public void setState(String state) {
+    public String getrCode() {
+		return rCode;
+	}
+
+	public void setrCode(String rCode) {
+		this.rCode = rCode;
+	}
+
+	public void setState(String state) {
         this.state = state == null ? null : state.trim();
     }
 }
