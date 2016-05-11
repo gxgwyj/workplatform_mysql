@@ -62,7 +62,7 @@
 					<a href="<%=path%>/oa/leave/task/claim.do?taskId=${task.id}">签收</a>
 				</c:if>
 				<c:if test="${not empty task.assignee }">
-					<a  tkey='${task.taskDefinitionKey}' tname='${task.name }' leaveId='${leave.id}' href="#" onclick="doLeave(this,'${task.id}');">办理</a>
+					<a  tkey='${task.taskDefinitionKey}' tname='${task.name }' leaveId='${leave.id}' href="#" onclick="doLeave(this,'${task.id}','${pInstance.id}');">办理</a>
 				</c:if>
 			</td>
 	</tr>
@@ -81,6 +81,7 @@
 		<td>
 		  <input type="text" id ="applyName" readonly="readonly">
 		  <input type="hidden" id = "taskId" >
+		  <input type="hidden" id = "pid" >
 		</td>
 	</tr>
 	<tr>
@@ -129,7 +130,7 @@ function showActiveProcess(pid,pdid){
 <c:if test="${not empty message}">
 alert("${message}");
 </c:if>
-function doLeave(obj,taskId){
+function doLeave(obj,taskId,pid){
 	var leaveId = $(obj).attr("leaveId");
 	$.ajax({
 		type:"get",
@@ -157,6 +158,7 @@ function doLeave(obj,taskId){
 			$("#endTime").val(leave.endTime);
 			$("#reason").html(leave.reason);
 			$("#taskId").val(taskId);
+			$("#pid").val(pid);
 		}
 	});
 	$('#leaveDetail').window('open');
@@ -173,7 +175,8 @@ function dismiss(){
 function complate(isAgree){
 	var suggestion = $("#suggestion").val();
 	var taskId = $("#taskId").val();
-	window.location.href = "<%=path%>/oa/leave/complate.do?taskId="+taskId+"&isAgree="+isAgree+"&suggestion="+encodeURI(encodeURI(suggestion));
+	var pid = $("#pid").val();
+	window.location.href = "<%=path%>/oa/leave/complate.do?taskId="+taskId+"&isAgree="+isAgree+"&suggestion="+encodeURI(encodeURI(suggestion))+"&pid="+pid;
 }
 </script>
 </html>
