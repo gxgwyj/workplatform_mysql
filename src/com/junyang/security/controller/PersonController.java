@@ -30,9 +30,9 @@ import com.junyang.security.vo.QueryPersonVo;
 @Controller
 @RequestMapping(value="security/person/")
 public class PersonController {
-    private static final String PERSON_EDIT="security/person/personEdit";
-    private static final String PERSON_LIST="security/person/personList";
-    private static final String PERSON_LIST_ACTION="security/organization/organizationList.do";
+    private static final String PERSON_EDIT_VIEW="security/person/personEdit";
+    private static final String PERSON_LIST_VIEW="security/person/personList";
+    private static final String PERSON_LIST_ACTION="security/person/personList.do";
     private static final String REDIRECT_PERSON_LIST_ACTION="redirect:personList.do";
     @Autowired
     private PersonService personService;
@@ -54,7 +54,7 @@ public class PersonController {
 		Map<String, Object> map =new HashMap<String, Object>();
 		map.put("personVo", personVo);
 		map.put("organizationList", organizationList);
-		return new ModelAndView(PERSON_EDIT,map);
+		return new ModelAndView(PERSON_EDIT_VIEW,map);
 	}
 	/**
 	 * 人员列表页面
@@ -73,7 +73,7 @@ public class PersonController {
 		map.put("queryPersonVo", queryPersonVo);
 		List<Organization> organizationList = organizationService.findOrganizationList();
 		map.put("organizationList", organizationList);
-		return new ModelAndView(PERSON_LIST,map);
+		return new ModelAndView(PERSON_LIST_VIEW,map);
 	}
 	/**
 	 * @return
@@ -107,16 +107,6 @@ public class PersonController {
 		personService.saveOrupdatePerson(person);
 		return new ModelAndView(REDIRECT_PERSON_LIST_ACTION);
 	}
-	@RequestMapping(value="persoonRemove")
-	@ResponseBody
-	private String persoonRemove(HttpServletRequest request){
-		String[] ids = request.getParameterValues("personId");
-		if(ids!=null && ids.length>0){
-			personService.removePersons(ids);
-		}
-		return "success";
-	}
-	
 	
 
 }

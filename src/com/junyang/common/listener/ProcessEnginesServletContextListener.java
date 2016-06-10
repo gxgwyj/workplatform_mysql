@@ -1,4 +1,4 @@
-package com.junyang.common.Listener;
+package com.junyang.common.listener;
 
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;

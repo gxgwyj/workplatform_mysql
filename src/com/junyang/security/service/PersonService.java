@@ -36,11 +36,6 @@ public interface PersonService {
 	 */
 	public void saveOrupdatePerson(Person person);
 	/**
-	 * 批量删除用户信息
-	 * @param ids
-	 */
-	public void removePersons(String[] ids);
-	/**
 	 * 根据用户ID获得用户角色
 	 */
 	public Set<Role> getPersonRoles(String personId);

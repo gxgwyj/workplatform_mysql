@@ -34,7 +34,7 @@ import com.junyang.security.service.MenuService;
  */
 @Controller
 @RequestMapping(value="security/")
-public class LoginAction { 
+public class LoginController { 
 	private static final String VIEW_PATH_MAIN = "security/main/main";
 	private static final String VIEW_PATH_LOGIN = "forward:/login.jsp";
 	@Autowired

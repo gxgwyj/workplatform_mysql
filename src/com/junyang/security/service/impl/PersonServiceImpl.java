@@ -5,6 +5,7 @@ import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.junyang.common.model.page.Page;
 import com.junyang.common.util.StringUtil;
@@ -40,6 +41,7 @@ public class PersonServiceImpl implements PersonService {
 		PersonVo personVo = personMapper.selectPersonVoByCode(code);
 		return personVo;
 	}
+	@Transactional
 	@Override
 	public void saveOrupdatePerson(Person person) {
 		if(StringUtil.isEmpty(person.getId())){
@@ -48,14 +50,6 @@ public class PersonServiceImpl implements PersonService {
 			personMapper.updateByPrimaryKeySelective(person);
 		}
 		
-	}
-	@Override
-	public void removePersons(String[] ids) {
-		if(ids!=null && ids.length>0){
-			for(String id:ids){
-				personMapper.deletePerson(id);
-			}
-		}
 	}
 	@Override
 	public Set<Role> getPersonRoles(String personId) {

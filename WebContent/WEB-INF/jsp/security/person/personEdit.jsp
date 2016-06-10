@@ -43,8 +43,8 @@
 		<th >性别：</th>
 			<td >
 				<select name="sex">
-					<option value="男" <c:if test="${'1' eq personVo.sex}">selected</c:if> >男</option>
-					<option value="0" <c:if test="${'女' eq personVo.sex}">selected</c:if> >女</option>
+					<option value="男" <c:if test="${'男' eq personVo.sex}">selected</c:if> >男</option>
+					<option value="女" <c:if test="${'女' eq personVo.sex}">selected</c:if> >女</option>
 				</select>
 			</td>
 		</tr>
@@ -128,7 +128,7 @@
 		$("form").submit();
 	}
 	function goBack(){
-		window.location.href="<%=path%>/security/personVo/personVoList.do";
+		history.back(-1);
 	}
 	$("#signupForm").validate({
 		rules: {

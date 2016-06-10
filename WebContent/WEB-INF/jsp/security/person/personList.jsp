@@ -44,13 +44,12 @@
 </div>
 <div class="toolBarForm">
   <input type="button" class="toolBarbtn" value="添加" onclick="addData();"  >
-  <input type="button" class="toolBarbtn"  value="删除" onclick="deleteData();">
   <input type="button" class="toolBarbtn"  value="导出">
 </div>
 <div class="dataMain">
 <table width = "100%"  class="datalist">  
     <tr>  
-       <th style="width:5%;"><input type="checkbox" onclick="checkAll(this,'personId');"/></th> 
+       <th >序号</th> 
        <th >用户代码</th>
        <th >登录名</th>  
        <th >部门</th>
@@ -63,9 +62,9 @@
        <th >状态</th>
        <th >操作</th>   
    </tr>  
-   <c:forEach  items="${personVoList}" var="personVo">
+   <c:forEach  items="${personVoList}" var="personVo" varStatus="status">
    	  <tr>  
-   	   <td style="text-align: center;"><input type="checkbox"  name="personId" value="${personVo.id}" /></td>
+   	   <td style="text-align: center;">${status.count}</td>
        <td style="text-align: center;">${personVo.code}</td>  
        <td style="text-align: center;">${personVo.loginname}</td>  
        <td style="text-align: center;">${personVo.orgName}</td>
@@ -115,25 +114,6 @@
 <script type="text/javascript">
 function queryData(){
 	document.forms[0].submit();
-}
-function deleteData(){
-	if($("input[name='personId']:checked").length==0){
-		alert("请选择要删除的数据！");
-		return;
-	}
-	$.ajax({
-	 	type:'POST', 
-	 	async:false,
-        url:"<%=path%>/security/person/persoonRemove.do",
-        dataType:"text",
-        data:$("form").serialize(),
-       	success: function(result){
-           	if("success"==result){
-           		$("form").submit();
-           	}
-   	    }
-		
-	});
 }
 var perId = "";
 function editData(id){

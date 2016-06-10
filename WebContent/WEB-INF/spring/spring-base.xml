@@ -20,12 +20,27 @@
 <!--数据库连接参数配置-->       
     <context:property-placeholder location="classpath:db.properties" />
     
-<!--数据源配置destroy-method="close"的作用是当数据库连接不使用的时候,就把该连接重新放到数据池中,方便下次使用调用-->
-    <bean id="jdbcDataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource" >
+    <bean id="jdbcDataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
           <property name="driverClassName" value="${jdbc.driver}" />
           <property name="url" value="${jdbc.url}" />
           <property name="username" value="${jdbc.username}" />
           <property name="password" value="${jdbc.password}" />
+          <!--连接池初始值-->
+       	  <property name="initialSize" value="10"/>
+          <!-- 同一时间可以从池分配的最多连接数量。设置为0时表示无限制。 -->
+          <property name="maxActive" value="30"/>
+          <!-- 池里不会被释放的最多空闲连接数量。设置为0时表示无限制。 -->
+	      <property name="maxIdle" value="20"/>
+	      <!-- 在不新建连接的条件下，池中保持空闲的最少连接数。 -->
+	      <property name="minIdle" value="3"/>
+	      <!-- 设置自动回收超时连接 -->  
+	      <property name="removeAbandoned" value="true" />
+	      <!-- 自动回收超时时间(以秒数为单位) -->  
+	      <property name="removeAbandonedTimeout" value="200"/>
+	      <!-- 设置在自动回收超时连接的时候打印连接的超时错误  --> 
+	      <property name="logAbandoned" value="true"/>
+	      <!-- 等待超时以毫秒为单位，在抛出异常之前，池等待连接被回收的最长时间（当没有可用连接时）。设置为-1表示无限等待。  -->  
+	      <property name="maxWait" value="100"/> 
     </bean>
 <!--spring管理事务--> 
     <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
@@ -50,6 +65,7 @@
 <!-- 自动扫描mapper接口,交给spring容器管理 -->  
 <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
     <!--扫描mapper对应接口路径-->  
-    <property name="basePackage" value="com.junyang.**.dao" /> 
+    <property name="basePackage" value="com.junyang.**.dao" />
+    <property name="sqlSessionFactoryBeanName" value = "sqlSessionFactory" /> 
 </bean>
 </beans>

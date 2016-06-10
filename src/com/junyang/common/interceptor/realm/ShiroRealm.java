@@ -41,10 +41,9 @@ public class ShiroRealm extends AuthorizingRealm{
 	 */
 	@Override
 	protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principals) {
-		  System.out.println("授权-------");
 		  String username = (String)principals.getPrimaryPrincipal();
-		  SimpleAuthorizationInfo authorizationInfo = new SimpleAuthorizationInfo();
-		  Subject  currentUser = SecurityUtils.getSubject();//，获取当前的用户
+		  SimpleAuthorizationInfo authorizationInfo = new SimpleAuthorizationInfo();//创建授权对象
+		  Subject  currentUser = SecurityUtils.getSubject();//获取当前的用户
 		  Session  session = currentUser.getSession();
 		  PersonVo personVo = (PersonVo) session.getAttribute(Constants.SESSION_USER);
 		  Set<String>  roleStrs = new HashSet<String>();
@@ -71,7 +70,6 @@ public class ShiroRealm extends AuthorizingRealm{
 	 */
 	@Override
 	protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken authcToken) throws AuthenticationException {
-		System.out.println("认证-------");
 		UsernamePasswordToken token = (UsernamePasswordToken) authcToken;  
 		String username = token.getUsername();
 		String password = new String(token.getPassword());
@@ -83,8 +81,8 @@ public class ShiroRealm extends AuthorizingRealm{
 		
 		if(personVoList!=null && personVoList.size()>0){
 			PersonVo personVo = personVoList.get(0);
-			Subject  currentUser = SecurityUtils.getSubject();//，获取当前的用户
-			Session session = currentUser.getSession();
+			Subject  subject = SecurityUtils.getSubject();//，获取当前的用户
+			Session session = subject.getSession();
 			session.setAttribute(Constants.SESSION_USER, personVo);
 			return new SimpleAuthenticationInfo(personVo.getCode(),personVo.getPassword(),getName());
 		}
