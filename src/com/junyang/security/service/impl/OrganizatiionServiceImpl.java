@@ -6,7 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.junyang.common.model.page.Page;
-import com.junyang.common.util.StringUtil;
+import com.junyang.common.utils.StringUtil;
 import com.junyang.security.dao.OrganizationMapper;
 import com.junyang.security.model.Organization;
 import com.junyang.security.service.OrganizationService;

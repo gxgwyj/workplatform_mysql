@@ -26,6 +26,7 @@ public class SecurityInterceptor extends HandlerInterceptorAdapter {
         	str.append("window.top.location.href=").append("\""+request.getContextPath()+"\"");
         	str.append("</script>");
         	out.print(str.toString());
+        	out.close();
         	return false;
         }  
         return true; 

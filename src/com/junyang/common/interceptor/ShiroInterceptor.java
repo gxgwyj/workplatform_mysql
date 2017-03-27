@@ -35,6 +35,7 @@ public class ShiroInterceptor extends HandlerInterceptorAdapter {
 	        	str.append("window.top.location.href=").append("\""+request.getContextPath()+"\"");
 	        	str.append("</script>");
 	        	out.print(str.toString());
+	        	out.close();
 	        	isOk =  false;
 	        }else{//登录未超时判断是否有权限
 	        	if(per!=null &&"menu".equals(per)){

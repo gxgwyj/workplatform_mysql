@@ -18,6 +18,7 @@
 
 <!-- spring集成activiti-->
     <bean id="processEngineConfiguration" class="org.activiti.spring.SpringProcessEngineConfiguration">
+         <property name="databaseSchemaUpdate"  value="true" />
          <!--设置数据源-->
          <property name="dataSource" ref="jdbcDataSource" />
          <!--spring管理实务-->

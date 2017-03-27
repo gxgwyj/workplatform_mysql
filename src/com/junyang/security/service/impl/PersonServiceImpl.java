@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.junyang.common.model.page.Page;
-import com.junyang.common.util.StringUtil;
+import com.junyang.common.utils.StringUtil;
 import com.junyang.security.dao.PersonMapper;
 import com.junyang.security.model.Menu;
 import com.junyang.security.model.Person;

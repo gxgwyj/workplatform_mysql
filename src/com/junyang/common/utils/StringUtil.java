@@ -1,4 +1,4 @@
-package com.junyang.common.util;
+package com.junyang.common.utils;
 /**
  * 字符串处理工具
  * @author Administrator

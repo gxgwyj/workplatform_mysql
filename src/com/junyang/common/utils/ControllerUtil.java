@@ -1,4 +1,4 @@
-package com.junyang.common.util;
+package com.junyang.common.utils;
 
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.session.Session;

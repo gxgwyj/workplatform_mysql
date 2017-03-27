@@ -20,7 +20,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.junyang.common.Constants;
 import com.junyang.common.model.tree.Node;
-import com.junyang.common.util.ControllerUtil;
+import com.junyang.common.utils.ControllerUtil;
 import com.junyang.security.dao.PersonMapper;
 import com.junyang.security.login.model.LoginMsg;
 import com.junyang.security.login.service.LoginService;

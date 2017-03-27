@@ -1,4 +1,4 @@
-package com.junyang.common.util;
+package com.junyang.common.utils;
 
 import java.util.UUID;
 

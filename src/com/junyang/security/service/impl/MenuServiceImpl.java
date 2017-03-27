@@ -10,7 +10,7 @@ import org.springframework.stereotype.Service;
 
 import com.junyang.common.Constants;
 import com.junyang.common.model.tree.TreeNode;
-import com.junyang.common.util.StringUtil;
+import com.junyang.common.utils.StringUtil;
 import com.junyang.security.dao.MenuMapper;
 import com.junyang.security.dao.PrivilegeMapper;
 import com.junyang.security.model.Menu;

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://java.sun.com/xml/ns/javaee" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" id="WebApp_ID" version="2.5">
-  <display-name>workplatform</display-name>
+  <display-name>workplatform_mysql</display-name>
   <welcome-file-list>
     <welcome-file>login.jsp</welcome-file>
     <welcome-file>index.html</welcome-file>
@@ -58,15 +58,7 @@
     <servlet-name>spring</servlet-name>
     <url-pattern>*.do</url-pattern>
   </servlet-mapping>
-  <servlet>
-    <servlet-name>CXFService</servlet-name>
-    <servlet-class>org.apache.cxf.transport.servlet.CXFServlet</servlet-class>
-  </servlet>
-  <servlet-mapping>
-    <servlet-name>CXFService</servlet-name>
-    <url-pattern>/ws/services/*</url-pattern>
-  </servlet-mapping>
   <session-config>
-    <session-timeout>5</session-timeout>
+    <session-timeout>1</session-timeout>
   </session-config>
 </web-app>

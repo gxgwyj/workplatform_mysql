@@ -7,7 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.junyang.common.model.page.Page;
-import com.junyang.common.util.StringUtil;
+import com.junyang.common.utils.StringUtil;
 import com.junyang.security.dao.PersonRoleMapper;
 import com.junyang.security.dao.RoleMapper;
 import com.junyang.security.model.PersonRole;

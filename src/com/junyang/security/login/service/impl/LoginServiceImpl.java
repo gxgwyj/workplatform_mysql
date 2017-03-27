@@ -7,7 +7,7 @@ import javax.jws.WebService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.junyang.common.util.StringUtil;
+import com.junyang.common.utils.StringUtil;
 import com.junyang.security.dao.PersonMapper;
 import com.junyang.security.login.model.LoginMsg;
 import com.junyang.security.login.service.LoginService;

@@ -29,8 +29,8 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.junyang.common.Constants;
 import com.junyang.common.model.page.Page;
-import com.junyang.common.util.ControllerUtil;
-import com.junyang.common.util.JsonUtil;
+import com.junyang.common.utils.ControllerUtil;
+import com.junyang.common.utils.JsonUtil;
 import com.junyang.oa.model.Leave;
 import com.junyang.security.vo.PersonVo;
 import com.junyang.workflow.service.LeaveWorkflowService;

@@ -17,8 +17,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.junyang.common.model.tree.TreeNode;
-import com.junyang.common.util.JsonUtil;
-import com.junyang.common.util.StringUtil;
+import com.junyang.common.utils.JsonUtil;
+import com.junyang.common.utils.StringUtil;
 import com.junyang.security.model.Menu;
 import com.junyang.security.service.MenuService;
 import com.junyang.security.vo.MenuVo;

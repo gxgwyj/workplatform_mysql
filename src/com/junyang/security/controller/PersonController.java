@@ -19,7 +19,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.junyang.common.Constants;
 import com.junyang.common.model.page.Page;
-import com.junyang.common.util.StringUtil;
+import com.junyang.common.utils.StringUtil;
 import com.junyang.security.model.Organization;
 import com.junyang.security.model.Person;
 import com.junyang.security.service.OrganizationService;

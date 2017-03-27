@@ -1,4 +1,4 @@
-package com.junyang.common.util;
+package com.junyang.common.utils;
 
 import java.io.IOException;
 import java.text.SimpleDateFormat;

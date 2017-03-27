@@ -16,7 +16,7 @@ import org.activiti.engine.task.TaskQuery;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.junyang.common.util.PrimaryKeyManager;
+import com.junyang.common.utils.PrimaryKeyManager;
 import com.junyang.oa.dao.LeaveMapper;
 import com.junyang.oa.model.Leave;
 import com.junyang.oa.vo.LeaveVo;
