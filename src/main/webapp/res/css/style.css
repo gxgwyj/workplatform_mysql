@@ -1,0 +1,272 @@
+@charset "utf-8";
+/* CSS Document */
+.maintop{
+	background: url("../../res/images/header.gif");
+	height: 70px;
+} 
+.spanbtn{
+	float:right;
+	margin-top: 10px;
+	margin-right: 10px;
+	
+}
+.spanuser{
+	float:left;
+	margin-top: 30px;
+	margin-left: 200px;
+	
+}
+.gridtable th{
+	border: 1px solid;
+	background-color: #D7E4F3;
+	font-size: 16px;
+}
+.gridtable td{
+	border: 1px solid;
+	font-size: 12px;
+}
+
+.addbtn{
+	border: 0;
+	height: 16px;
+	width: 16px;
+	cursor:pointer;
+	background: url("../../res/img/common/add.png");
+}
+.editbtn{
+	border: 0;
+	height: 16px;
+	width: 16px;
+	cursor:pointer;
+	background: url("../../res/img/common/edit.png");
+}
+.downbtn{
+	border: 0;
+	height: 16px;
+	width: 16px;
+	cursor:pointer;
+	background: url("../../res/img/common/down.png");
+}
+.removebtn{
+	border: 0;
+	height: 16px;
+	width: 16px;
+	cursor:pointer;
+	background: url("../../res/img/common/remove.png");
+}
+.upbtn{
+	border: 0;
+	height: 16px;
+	width: 16px;
+	cursor:pointer;
+	background: url("../../res/img/common/up.png");
+}
+.login_form{
+    background: #fff none repeat scroll 0 0;
+    overflow: visible;
+    border:1px solid #bdbdbd;
+    padding: 20px;
+    float:right;
+    margin-top:30px;
+    margin-right:60px;
+    position: relative;
+    width: 350px;
+    height:500px;
+    z-index: 4;
+}
+body {
+    background: #fff none repeat scroll 0 0;
+    color: #666;
+    font: 12px/150% Arial,Verdana,"宋体";
+}
+.input_item .input_name{
+	margin-top: 60px;
+}
+.input_item{
+	border: 1px solid  #bdbdbd; 
+	height: 38px;
+	withd:304px;
+	margin-bottom: 30px;
+}
+.msg_error{
+	border: 1px solid #e4393c;
+	background: rgba(0, 0, 0, 0) url("../../res/img/moreIcons.png") no-repeat scroll -90px -48px;
+	line-height: 18px;
+    min-height: 18px;
+	withd:304px;
+	padding:0px 0px 0px 50px;
+	line-height:18px;
+	margin-bottom: 30px;
+}
+.input_Noborder{
+	border: 0 none;
+	float: none;
+	padding: 10px 0 10px 50px;
+	width: 250px;
+	height: 18px;
+	line-height: 18px;
+}
+.login_icon{
+	background: url("../../res/img/moreIcons.png") no-repeat scroll 0 0;
+	border-right: 1px solid #bdbdbd;
+	height: 38px;
+	width: 38px;
+	position: absolute;
+}
+
+.name_label {
+    background-position: 0 0;
+}
+.pwd_label {
+    background-position: -48px 0;
+}
+.btn_img{
+	background: #e4393c none repeat scroll 0 0;
+    border: 1px solid #e85356;
+    color: #fff;
+    display: block;
+    font-family: "微软雅黑";
+    font-size: 20px;
+    height: 40px;
+    line-height: 40px;
+    cursor: pointer;
+    text-align: center;
+    text-decoration: none;
+}
+/***表格列表样式***/
+.datalist{  
+    border:1px solid #0058a3;   /* 表格边框 */  
+    font-family:Arial;  
+    border-collapse:collapse;   /* 边框重叠 */  
+    background-color:#eaf5ff;   /* 表格背景色 */  
+    font-size:14px;  
+}  
+.datalist th{  
+    border:1px solid #0058a3;   /* 行名称边框 */  
+   	background-color:#4bacff;   /* 行名称背景色 */  
+    color:#FFFFFF;              /* 行名称颜色 */  
+   	font-weight:bold;  
+    padding-top:4px; padding-bottom:4px;  
+    padding-left:12px; padding-right:12px;  
+    text-align:center;  
+}  
+.datalist td{  
+    border:1px solid #0058a3;   /* 单元格边框 */  
+    text-align:left;  
+    padding-top:4px; padding-bottom:4px;  
+    padding-left:10px; padding-right:10px;  
+}  
+.datalist tr.altrow{  
+    background-color:#c7e5ff;   /* 隔行变色 */  
+}  
+.searchForm{
+	height: auto;
+	padding:5px;
+	border: 1px solid;
+	margin-bottom: 5px;
+}
+.toolBarForm{
+	height: auto;
+	padding:5px;
+	border: 1px solid;
+	margin-bottom: 5px;
+}
+buton{
+	cursor: pointer;
+}
+.dataMain{
+	overflow: auto;
+}
+.dataMain a{
+	cursor: pointer;
+	text-decoration: none;
+}
+
+.form_table{
+	border-collapse:collapse;/*属性设置表格的边框是否被合并为一个单一的边框*/
+	width:800px;
+}
+.form_table tr{
+	height:30px;
+}
+.form_table th{
+	border:1px solid black;
+	background-color:#DBEAF9;
+}
+.form_table td{
+	border:1px solid black;
+}
+.commonbtn{
+		  border: none;
+		  width: 140px;
+		  height: 36px;
+		  font-size: 18px;
+		  background:url("../images/button.png") no-repeat left top;
+		  color: #FFF;
+		  cursor: pointer;
+}
+
+.textStyle{
+	height:20px;
+	border: 1px solid #CCC;
+}
+.toolBarbtn {
+    background: rgba(0, 0, 0, 0) url("../images/btn_bg.gif") no-repeat scroll 0 0;
+    border: 0 none;
+    height: 23px;
+    line-height: 23px;
+    text-align: center;
+    width: 76px;
+}
+.showDataDiv{
+	width: 400px;
+	height: auto;
+	display: none;
+	background:#DBEAF9;
+	border: solid 2px #81C6D9;
+}
+.showDataDiv ul {
+    font-size: 12px;
+    overflow: hidden;
+    padding: 10px;
+    list-style: outside none none;
+}
+
+.showDataDiv ul li {
+	width:60px;
+	line-height: 30px;
+    float: left;
+    text-align: center;
+}
+.showDataDiv ul li a {
+	color: #333;
+	text-decoration: none;
+	cursor: p
+}
+.showDataDiv ul li a:hover{
+	background:#85B6E2;
+	color:#fff;
+	font-weight:bold;
+	font-size:14px;
+}
+a.closeBtn{
+		padding:2px;
+		margin-top:2px;
+		margin-right:2px;
+		float:right;
+		display:block;
+		width:auto;
+		text-align:center;
+		background:#fff;
+		border:1px solid #85B6E2;
+		color:#333;
+		text-decoration: none;
+		cursor: pointer;
+	}
+a.closeBtn:hover{
+		color:#fff;
+		border:1px solid #85B6E2;
+		background:#85B6E2;
+}
+   
+
