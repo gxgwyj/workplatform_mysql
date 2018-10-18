@@ -2,10 +2,10 @@ package com.junyang.security.service.impl;
 
 import java.util.List;
 
+import com.github.pagehelper.Page;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.junyang.common.model.page.Page;
 import com.junyang.common.utils.StringUtil;
 import com.junyang.security.dao.OrganizationMapper;
 import com.junyang.security.model.Organization;
@@ -49,8 +49,8 @@ public class OrganizatiionServiceImpl implements OrganizationService {
 		return organizationMapper.selectByPrimaryKey(id);
 	}
 	@Override
-	public List<OrganizationVo> findOrganizationPage(Page page,QueryOrganizationVo queryOrganizationVo) {
-		List<OrganizationVo> records = organizationMapper.selectOrganizationPage(page,queryOrganizationVo);
+	public List<OrganizationVo> findOrganizationPage(Page page, QueryOrganizationVo queryOrganizationVo) {
+		List<OrganizationVo> records = organizationMapper.selectOrganizationPage(queryOrganizationVo);
 		return records;
 	}
 	@Override

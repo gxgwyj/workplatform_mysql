@@ -2,8 +2,6 @@ package com.junyang.base.dao;
 
 import java.util.List;
 
-import com.junyang.common.model.page.Page;
-
 /**
  * 基础DAO
  * @author Administrator

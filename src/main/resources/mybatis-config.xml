@@ -4,6 +4,6 @@
     "http://mybatis.org/dtd/mybatis-3-config.dtd">  
 	<configuration>  
 	    <plugins>
-		   <plugin interceptor="com.junyang.base.dao.PagePlugin"></plugin>  
+			<plugin interceptor="com.github.pagehelper.PageInterceptor"></plugin>
 	    </plugins>
 	</configuration>  

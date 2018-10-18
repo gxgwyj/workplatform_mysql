@@ -3,11 +3,12 @@ package com.junyang.security.service.impl;
 import java.util.List;
 import java.util.Set;
 
+import com.github.pagehelper.Page;
+import com.github.pagehelper.PageHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.junyang.common.model.page.Page;
 import com.junyang.common.utils.StringUtil;
 import com.junyang.security.dao.PersonMapper;
 import com.junyang.security.model.Menu;
@@ -28,7 +29,8 @@ public class PersonServiceImpl implements PersonService {
     private MenuService menuService;
 	@Override
 	public List<PersonVo> findPersonVoPage(Page page, QueryPersonVo queryPersonVo) {
-		List<PersonVo> records = personMapper.selectPersonVoPage(page,queryPersonVo);
+        Page<Object> objects = PageHelper.startPage(1, 10);
+        List<PersonVo> records = personMapper.selectPersonVoPage(queryPersonVo);
 		return records;
 	}
 	@Override

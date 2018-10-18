@@ -3,12 +3,12 @@ package com.junyang.workflow.controller;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.github.pagehelper.Page;
 import org.activiti.bpmn.model.BpmnModel;
 import org.activiti.engine.ProcessEngineConfiguration;
 import org.activiti.engine.RepositoryService;
@@ -24,8 +24,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import com.junyang.common.Constants;
-import com.junyang.common.model.page.Page;
 @Controller
 @RequestMapping(value = "/workflow")
 public class ActivitiController {
@@ -43,15 +41,10 @@ public class ActivitiController {
        */
       @RequestMapping(value = "/processList")
       public ModelAndView processList(HttpServletRequest request,@ModelAttribute("page") Page page) {
-    	  if(!Constants.TURN_PAGE.equals(request.getParameter(Constants.TURN_PAGE))){
-  				page.setPageNo(1);
-  			}
-  		  page.initTurnPageUrl(PROCESSDEF_LIST_ACTION);
     	  ProcessDefinitionQuery processDefinitionQuery = repositoryService.createProcessDefinitionQuery().orderByDeploymentId().desc();
-    	  int firstResult = (page.getPageNo()-1)*10+1;
     	  int maxResults = page.getPageSize();
     	  List<Object[]> objects = new ArrayList<Object[]>();
-    	  List<ProcessDefinition> processDefinitionList = processDefinitionQuery.listPage(firstResult-1,maxResults);
+    	  List<ProcessDefinition> processDefinitionList = processDefinitionQuery.listPage(10-1,maxResults);
     	  Deployment deployment = null;
     	  for(ProcessDefinition processDefinition:processDefinitionList){
     		  String deploymentId = processDefinition.getDeploymentId();
@@ -60,8 +53,6 @@ public class ActivitiController {
     	  }
     	  int rest = (int)processDefinitionQuery.count()%page.getPageSize();
     	  int pageTotal = (int)processDefinitionQuery.count()/page.getPageSize();
-    	  page.setPageTotal(rest==0?pageTotal:pageTotal+1);
-    	  page.setRecordTotal((int)processDefinitionQuery.count());
     	  ModelAndView mv = new ModelAndView("workflow/processList");
     	  mv.addObject("page", page);
     	  mv.addObject("objects", objects);

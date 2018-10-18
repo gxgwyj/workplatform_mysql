@@ -10,6 +10,7 @@ import java.util.Set;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.github.pagehelper.Page;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -18,7 +19,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.junyang.common.Constants;
-import com.junyang.common.model.page.Page;
 import com.junyang.common.model.tree.TreeNode;
 import com.junyang.common.utils.JsonUtil;
 import com.junyang.common.utils.StringUtil;
@@ -44,11 +44,7 @@ public class RoleController {
 	 * @return
 	 */
 	@RequestMapping(value="roleList")
-	private ModelAndView roleList(@ModelAttribute("queryRoleVo") QueryRoleVo queryRoleVo,@ModelAttribute("page") Page page,HttpServletRequest request){
-		if(!Constants.TURN_PAGE.equals(request.getParameter(Constants.TURN_PAGE))){
-			page.setPageNo(1);
-		}
-		page.initTurnPageUrl(ROLE_LIST_ACTION);
+	private ModelAndView roleList(@ModelAttribute("queryRoleVo") QueryRoleVo queryRoleVo, @ModelAttribute("page") Page page, HttpServletRequest request){
 		List<Role> roleList = roleService.findRolePage(page,queryRoleVo);
 		Map<String, Object> map =new HashMap<String, Object>();
 		map.put("roleList", roleList);

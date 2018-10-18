@@ -3,7 +3,7 @@ package com.junyang.security.service;
 import java.util.List;
 import java.util.Set;
 
-import com.junyang.common.model.page.Page;
+import com.github.pagehelper.Page;
 import com.junyang.security.model.Menu;
 import com.junyang.security.model.Person;
 import com.junyang.security.model.Role;

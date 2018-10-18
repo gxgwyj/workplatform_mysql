@@ -4,7 +4,6 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Param;
 
-import com.junyang.common.model.page.Page;
 import com.junyang.security.model.Organization;
 import com.junyang.security.vo.OrganizationVo;
 import com.junyang.security.vo.QueryOrganizationVo;
@@ -24,7 +23,7 @@ public interface OrganizationMapper  {
     
     List<Organization> selectOrganizations();
     
-    List<OrganizationVo> selectOrganizationPage(@Param("page")Page page,@Param("queryOrganizationVo")QueryOrganizationVo queryOrganizationVo);
+    List<OrganizationVo> selectOrganizationPage(@Param("queryOrganizationVo")QueryOrganizationVo queryOrganizationVo);
     
     OrganizationVo selectVoByPrimaryKey(String oId);
     

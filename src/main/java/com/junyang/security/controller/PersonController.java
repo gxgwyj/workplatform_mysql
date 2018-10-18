@@ -8,6 +8,7 @@ import java.util.UUID;
 
 import javax.servlet.http.HttpServletRequest;
 
+import com.github.pagehelper.Page;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -17,8 +18,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.junyang.common.Constants;
-import com.junyang.common.model.page.Page;
 import com.junyang.common.utils.StringUtil;
 import com.junyang.security.model.Organization;
 import com.junyang.security.model.Person;
@@ -30,10 +29,10 @@ import com.junyang.security.vo.QueryPersonVo;
 @Controller
 @RequestMapping(value="security/person/")
 public class PersonController {
-    private static final String PERSON_EDIT_VIEW="security/person/personEdit";
-    private static final String PERSON_LIST_VIEW="security/person/personList";
-    private static final String PERSON_LIST_ACTION="security/person/personList.do";
-    private static final String REDIRECT_PERSON_LIST_ACTION="redirect:personList.do";
+	private static final String PERSON_EDIT_VIEW = "security/person/personEdit";
+	private static final String PERSON_LIST_VIEW = "security/person/personList";
+	private static final String PERSON_LIST_ACTION = "security/person/personList.do";
+	private static final String REDIRECT_PERSON_LIST_ACTION = "redirect:personList.do";
     @Autowired
     private PersonService personService;
     @Autowired
@@ -61,11 +60,7 @@ public class PersonController {
 	 * @return
 	 */
 	@RequestMapping(value="personList")
-	private ModelAndView personList(@ModelAttribute("queryPersonVo") QueryPersonVo queryPersonVo,HttpServletRequest request,@ModelAttribute("page") Page page){
-		if(!Constants.TURN_PAGE.equals(request.getParameter(Constants.TURN_PAGE))){
-			page.setPageNo(1);
-		}
-		page.initTurnPageUrl(PERSON_LIST_ACTION);
+	private ModelAndView personList(@ModelAttribute("queryPersonVo") QueryPersonVo queryPersonVo,@ModelAttribute("page") Page page){
 		List<PersonVo> personVoList = personService.findPersonVoPage(page,queryPersonVo);
 		Map<String, Object> map =new HashMap<String, Object>();
 		map.put("personVoList", personVoList);

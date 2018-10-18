@@ -5,7 +5,6 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Param;
 
-import com.junyang.common.model.page.Page;
 import com.junyang.security.model.Person;
 import com.junyang.security.vo.PersonVo;
 import com.junyang.security.vo.QueryPersonVo;
@@ -41,7 +40,7 @@ public interface PersonMapper {
 	    * @param queryPersonVo
 	    * @return
 	    */
-	   List<PersonVo> selectPersonVoPage(@Param("page")Page page,@Param("queryPersonVo")QueryPersonVo queryPersonVo);
+	   List<PersonVo> selectPersonVoPage(@Param("queryPersonVo")QueryPersonVo queryPersonVo);
 	   /**
 	    * 根据Id获取人员
 	    * @param id

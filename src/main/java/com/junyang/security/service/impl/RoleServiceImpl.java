@@ -3,10 +3,10 @@ package com.junyang.security.service.impl;
 import java.util.List;
 import java.util.Set;
 
+import com.github.pagehelper.Page;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.junyang.common.model.page.Page;
 import com.junyang.common.utils.StringUtil;
 import com.junyang.security.dao.PersonRoleMapper;
 import com.junyang.security.dao.RoleMapper;
@@ -53,7 +53,7 @@ public class RoleServiceImpl implements RoleService {
 
 	@Override
 	public List<Role> findRolePage(Page page, QueryRoleVo queryRoleVo) {
-		return roleMapper.selectRolePage(page,queryRoleVo);
+		return roleMapper.selectRolePage(queryRoleVo);
 	}
 
 	@Override

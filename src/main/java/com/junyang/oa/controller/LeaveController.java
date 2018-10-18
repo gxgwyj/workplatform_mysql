@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import com.github.pagehelper.Page;
 import org.activiti.engine.RepositoryService;
 import org.activiti.engine.RuntimeService;
 import org.activiti.engine.TaskService;
@@ -18,7 +19,6 @@ import org.activiti.engine.impl.persistence.entity.ProcessDefinitionEntity;
 import org.activiti.engine.impl.pvm.PvmActivity;
 import org.activiti.engine.impl.pvm.PvmTransition;
 import org.activiti.engine.impl.pvm.process.ActivityImpl;
-import org.activiti.engine.repository.ProcessDefinition;
 import org.activiti.engine.runtime.ProcessInstance;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -28,7 +28,6 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.junyang.common.Constants;
-import com.junyang.common.model.page.Page;
 import com.junyang.common.utils.ControllerUtil;
 import com.junyang.common.utils.JsonUtil;
 import com.junyang.oa.model.Leave;
@@ -53,11 +52,7 @@ public class LeaveController {
 	private static final String TASK_LIST_VIEW = "oa/leave/taskList";
 	
 	@RequestMapping(value="myleaveList")
-	private ModelAndView myleaveList(@ModelAttribute("page") Page page,HttpServletRequest request){
-		if(!Constants.TURN_PAGE.equals(request.getParameter(Constants.TURN_PAGE))){
-			page.setPageNo(1);
-		}
-		page.initTurnPageUrl("");
+	private ModelAndView myleaveList(@ModelAttribute("page") Page page, HttpServletRequest request){
 		List  list = null;
 		Map<String, Object> map =new HashMap<String, Object>();
 		map.put("list", list);
