@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Set;
 
 import com.github.pagehelper.Page;
+import com.junyang.common.model.tree.MyPage;
 import com.junyang.security.model.Menu;
 import com.junyang.security.model.Person;
 import com.junyang.security.model.Role;
@@ -23,7 +24,7 @@ public interface PersonService {
 	 * @param queryPersonVo
 	 * @return
 	 */
-	public List<PersonVo> findPersonVoPage(Page page, QueryPersonVo queryPersonVo);
+	public MyPage<PersonVo> findPersonVoPage(MyPage page, QueryPersonVo queryPersonVo);
 	/**
 	 * 根据用户ID获得用户信息
 	 * @param id

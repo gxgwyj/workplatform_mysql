@@ -9,6 +9,7 @@ import java.util.UUID;
 import javax.servlet.http.HttpServletRequest;
 
 import com.github.pagehelper.Page;
+import com.junyang.common.model.tree.MyPage;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -31,7 +32,6 @@ import com.junyang.security.vo.QueryPersonVo;
 public class PersonController {
 	private static final String PERSON_EDIT_VIEW = "security/person/personEdit";
 	private static final String PERSON_LIST_VIEW = "security/person/personList";
-	private static final String PERSON_LIST_ACTION = "security/person/personList.do";
 	private static final String REDIRECT_PERSON_LIST_ACTION = "redirect:personList.do";
     @Autowired
     private PersonService personService;
@@ -60,11 +60,10 @@ public class PersonController {
 	 * @return
 	 */
 	@RequestMapping(value="personList")
-	private ModelAndView personList(@ModelAttribute("queryPersonVo") QueryPersonVo queryPersonVo,@ModelAttribute("page") Page page){
-		List<PersonVo> personVoList = personService.findPersonVoPage(page,queryPersonVo);
-		Map<String, Object> map =new HashMap<String, Object>();
-		map.put("personVoList", personVoList);
-		map.put("page", page);
+	private ModelAndView personList(@ModelAttribute("queryPersonVo") QueryPersonVo queryPersonVo,@ModelAttribute("page") MyPage page){
+		MyPage<PersonVo> pageResult = personService.findPersonVoPage(page,queryPersonVo);
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("page", pageResult);
 		map.put("queryPersonVo", queryPersonVo);
 		List<Organization> organizationList = organizationService.findOrganizationList();
 		map.put("organizationList", organizationList);

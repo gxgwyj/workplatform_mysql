@@ -9,6 +9,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.github.pagehelper.Page;
+import com.junyang.common.Constants;
+import com.junyang.common.model.tree.MyPage;
 import org.activiti.bpmn.model.BpmnModel;
 import org.activiti.engine.ProcessEngineConfiguration;
 import org.activiti.engine.RepositoryService;
@@ -40,23 +42,27 @@ public class ActivitiController {
        * @return
        */
       @RequestMapping(value = "/processList")
-      public ModelAndView processList(HttpServletRequest request,@ModelAttribute("page") Page page) {
-    	  ProcessDefinitionQuery processDefinitionQuery = repositoryService.createProcessDefinitionQuery().orderByDeploymentId().desc();
-    	  int maxResults = page.getPageSize();
-    	  List<Object[]> objects = new ArrayList<Object[]>();
-    	  List<ProcessDefinition> processDefinitionList = processDefinitionQuery.listPage(10-1,maxResults);
-    	  Deployment deployment = null;
-    	  for(ProcessDefinition processDefinition:processDefinitionList){
-    		  String deploymentId = processDefinition.getDeploymentId();
-    		  deployment = repositoryService.createDeploymentQuery().deploymentId(deploymentId).singleResult();
-    		  objects.add(new Object[]{processDefinition,deployment});
-    	  }
-    	  int rest = (int)processDefinitionQuery.count()%page.getPageSize();
-    	  int pageTotal = (int)processDefinitionQuery.count()/page.getPageSize();
-    	  ModelAndView mv = new ModelAndView("workflow/processList");
-    	  mv.addObject("page", page);
-    	  mv.addObject("objects", objects);
-    	  return mv;
+      public ModelAndView processList(HttpServletRequest request,@ModelAttribute("page") MyPage page) {
+
+		  ProcessDefinitionQuery processDefinitionQuery = repositoryService.createProcessDefinitionQuery().orderByDeploymentId().desc();
+		  int firstResult = (page.getPageNum()-1)*10+1;
+		  int maxResults = page.getPageSize();
+		  List<Object[]> objects = new ArrayList<Object[]>();
+		  List<ProcessDefinition> processDefinitionList = processDefinitionQuery.listPage(firstResult-1,maxResults);
+		  Deployment deployment = null;
+		  for(ProcessDefinition processDefinition:processDefinitionList){
+			  String deploymentId = processDefinition.getDeploymentId();
+			  deployment = repositoryService.createDeploymentQuery().deploymentId(deploymentId).singleResult();
+			  objects.add(new Object[]{processDefinition,deployment});
+		  }
+		  int rest = (int)processDefinitionQuery.count()%page.getPageSize();
+		  int pageTotal = (int)processDefinitionQuery.count()/page.getPageSize();
+		  page.setPages(rest==0?pageTotal:pageTotal+1);
+		  page.setTotal(processDefinitionQuery.count());
+		  ModelAndView mv = new ModelAndView("workflow/processList");
+		  mv.addObject("page", page);
+		  mv.addObject("objects", objects);
+		  return mv;
       }
       @RequestMapping(value="resource/read")
       public void readResource(@RequestParam("processDefinitionId") String processDefinitionId,@RequestParam("resourceType") String resourceType,HttpServletResponse  response){

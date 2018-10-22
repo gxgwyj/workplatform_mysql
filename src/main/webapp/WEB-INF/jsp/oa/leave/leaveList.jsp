@@ -35,7 +35,7 @@
        <th>流程状态</th>
        <th>当前处理人</th>
    </tr>  
-   <c:forEach  items="${myleaveList}" var="role">
+   <c:forEach  items="${page.records}" var="role">
    	  <tr>  
    	   <td style="text-align: center;"><input type="checkbox"  name="rId" value="${role.rId}" /></td>
        <td style="text-align: center;">${role.rName}</td>  
@@ -54,12 +54,6 @@
 </div>
 <%@include file="/WEB-INF/jsp/common/page.jsp" %>
 </form>
-<div id="w" class="easyui-window" title="角色权限" data-options="modal:true,closed:true" style="width:400px;height:400px;padding:10px;">
-<div id="treeView" class="ztree" style="height: 300px;"></div>
-<div align="center">
-	<input type="button" value="保存" onclick="assignMenu();">
-</div>
-</div>
 </body>
 <script type="text/javascript">
 function queryData(){

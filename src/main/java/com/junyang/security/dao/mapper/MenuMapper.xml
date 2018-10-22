@@ -103,7 +103,7 @@
   			t1.m_id  as id,
   			t1.m_pid as pid,
   			t1.m_name as name,
-  			nvl2(t2.p_mid,1,0)  as checked
+  			case t2.p_mid when null then '0' else '1' end checked
  		from t_menu t1
   		left join (select * from t_privilege  where P_MASTER='role'  and P_MASTERVALUE=#{0}) t2 on t1.m_id = t2.p_mid
    </select>

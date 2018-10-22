@@ -1,6 +1,6 @@
 package com.junyang.test;
 
-import com.github.pagehelper.Page;
+import com.junyang.common.model.tree.MyPage;
 import com.junyang.security.service.PersonService;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,7 +18,7 @@ public class PersonServiceTest extends BaseTest {
 
     @Test
     public void testFindPersonVoPage() {
-        Page page = new Page();
+        MyPage page = new MyPage();
         personService.findPersonVoPage(page, null);
     }
 }

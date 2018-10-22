@@ -5,6 +5,8 @@ import java.util.Set;
 
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
+import com.junyang.common.model.tree.MyPage;
+import com.junyang.common.utils.JsonUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -28,10 +30,11 @@ public class PersonServiceImpl implements PersonService {
     @Autowired 
     private MenuService menuService;
 	@Override
-	public List<PersonVo> findPersonVoPage(Page page, QueryPersonVo queryPersonVo) {
-        Page<Object> objects = PageHelper.startPage(1, 10);
-        List<PersonVo> records = personMapper.selectPersonVoPage(queryPersonVo);
-		return records;
+	public MyPage<PersonVo> findPersonVoPage(MyPage pageParam, QueryPersonVo queryPersonVo) {
+        Page<PersonVo> queryResult = PageHelper.startPage(pageParam.getPageNum(),pageParam.getPageSize());
+        personMapper.selectPersonVoPage(queryPersonVo);
+        MyPage<PersonVo> pageResult = new MyPage<>(queryResult);
+	    return pageResult;
 	}
 	@Override
 	public PersonVo getPersonVoById(String id) {

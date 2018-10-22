@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.github.pagehelper.Page;
+import com.junyang.common.model.tree.MyPage;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -26,10 +27,9 @@ import com.junyang.security.vo.QueryOrganizationVo;
 @Controller
 @RequestMapping(value="security/organization/")
 public class OrganizationController {
-    private static final String MENU_LIST_VIEW="security/organization/organizationList";
-    private static final String MENU_EDIT_VIEW="security/organization/organizationEdit";
-    private static final String MENU_LIST_ACTION="security/organization/organizationList.do";
-    private static final String REDIRECT_MENU_LIST_ACTION="redirect:organizationList.do";
+	private static final String MENU_LIST_VIEW = "security/organization/organizationList";
+	private static final String MENU_EDIT_VIEW = "security/organization/organizationEdit";
+	private static final String REDIRECT_MENU_LIST_ACTION = "redirect:organizationList.do";
     @Autowired
     private OrganizationService organizationService;
 	/**
@@ -37,33 +37,14 @@ public class OrganizationController {
 	 * @return
 	 */
 	@RequestMapping(value="organizationList")
-	private ModelAndView organizationList(@ModelAttribute("queryOrganizationVo") QueryOrganizationVo queryOrganizationVo, @ModelAttribute("page") Page page, HttpServletRequest request){
-		List<OrganizationVo> organizationList = organizationService.findOrganizationPage(page,queryOrganizationVo);
+	private ModelAndView organizationList(@ModelAttribute("queryOrganizationVo") QueryOrganizationVo queryOrganizationVo, @ModelAttribute("page") MyPage page){
+		MyPage<OrganizationVo> myPage = organizationService.findOrganizationPage(page,queryOrganizationVo);
 		Map<String, Object> map =new HashMap<String, Object>();
-		map.put("organizationList", organizationList);
-		map.put("page", page);
+		map.put("page", myPage);
 		map.put("queryOrganizationVo", queryOrganizationVo);
 		return new ModelAndView(MENU_LIST_VIEW,map);
 	}
-	/**
-	 *返回json格式的请求 
-	 * @return
-	 */
-	@RequestMapping(value="organizationListJson")
-	@ResponseBody
-	private String organizationListJson(HttpServletRequest request){
-		int start = Integer.valueOf(request.getParameter("start"));
-		int limit = Integer.valueOf(request.getParameter("limit"));
-//		ExtPage  extPage = new ExtPage();
-//		extPage.setStart(start);
-//		extPage.setLimit(limit);
-//		extPage.setPageSize(10);
-//		extPage.setPageNo(start/limit+1);
-//		List<OrganizationVo> records = null;//organizationService.findOrganizationPage(extPage);
-//		extPage.setRecords(records);
-		String pageJson = JsonUtil.Object2Json(null);
-		return pageJson;
-	}
+
 	@RequestMapping(value="organizationRemove")
 	@ResponseBody
 	private String organizationRemove(HttpServletRequest request){

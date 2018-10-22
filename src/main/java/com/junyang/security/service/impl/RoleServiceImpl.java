@@ -4,6 +4,8 @@ import java.util.List;
 import java.util.Set;
 
 import com.github.pagehelper.Page;
+import com.github.pagehelper.PageHelper;
+import com.junyang.common.model.tree.MyPage;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -52,8 +54,10 @@ public class RoleServiceImpl implements RoleService {
 	}
 
 	@Override
-	public List<Role> findRolePage(Page page, QueryRoleVo queryRoleVo) {
-		return roleMapper.selectRolePage(queryRoleVo);
+	public MyPage<Role> findRolePage(MyPage page, QueryRoleVo queryRoleVo) {
+		Page<Object> queryResult = PageHelper.startPage(page.getPageNum(), page.getPageSize());
+		roleMapper.selectRolePage(queryRoleVo);
+		return new MyPage<>(queryResult);
 	}
 
 	@Override

@@ -39,7 +39,7 @@
        <th>状态</th>
        <th>操作</th>  
    </tr>  
-   <c:forEach  items="${roleList}" var="role">
+   <c:forEach  items="${page.records}" var="role">
    	  <tr>  
    	   <td style="text-align: center;"><input type="checkbox"  name="rId" value="${role.rId}" /></td>
        <td style="text-align: center;">${role.rName}</td>

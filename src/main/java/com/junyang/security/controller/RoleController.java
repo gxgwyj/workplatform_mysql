@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.github.pagehelper.Page;
+import com.junyang.common.model.tree.MyPage;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -18,7 +19,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.junyang.common.Constants;
 import com.junyang.common.model.tree.TreeNode;
 import com.junyang.common.utils.JsonUtil;
 import com.junyang.common.utils.StringUtil;
@@ -33,7 +33,6 @@ import com.junyang.security.vo.QueryRoleVo;
 public class RoleController {
     private static final String ROLE_LIST_VIEW="security/role/roleList";
     private static final String ROLE_EDIT_VIEW="security/role/roleEdit";
-    private static final String ROLE_LIST_ACTION="security/role/roleList.do";
     private static final String REDIRECT_ROLE_LIST_ACTION="redirect:roleList.do";
     @Autowired
     private RoleService roleService;
@@ -44,11 +43,10 @@ public class RoleController {
 	 * @return
 	 */
 	@RequestMapping(value="roleList")
-	private ModelAndView roleList(@ModelAttribute("queryRoleVo") QueryRoleVo queryRoleVo, @ModelAttribute("page") Page page, HttpServletRequest request){
-		List<Role> roleList = roleService.findRolePage(page,queryRoleVo);
+	private ModelAndView roleList(@ModelAttribute("queryRoleVo") QueryRoleVo queryRoleVo, @ModelAttribute("page") MyPage page){
+		MyPage<Role> pageResult = roleService.findRolePage(page,queryRoleVo);
 		Map<String, Object> map =new HashMap<String, Object>();
-		map.put("roleList", roleList);
-		map.put("page", page);
+		map.put("page", pageResult);
 		map.put("queryRoleVo", queryRoleVo);
 		return new ModelAndView(ROLE_LIST_VIEW,map);
 	}

@@ -35,7 +35,7 @@
        <th style="width:10%;">状态</th>
        <th style="width:17%;">操作</th>  
    </tr>  
-   <c:forEach  items="${organizationList}" var="organization">
+   <c:forEach  items="${page.records}" var="organization">
    	  <tr>  
    	   <td style="text-align: center;"><input type="checkbox"  name="orgId" value="${organization.id}" /></td>
        <td style="text-align: center;">${organization.code}</td>  

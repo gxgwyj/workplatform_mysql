@@ -62,7 +62,7 @@
        <th >状态</th>
        <th >操作</th>   
    </tr>  
-   <c:forEach  items="${personVoList}" var="personVo" varStatus="status">
+   <c:forEach  items="${page.records}" var="personVo" varStatus="status">
    	  <tr>  
    	   <td style="text-align: center;">${status.count}</td>
        <td style="text-align: center;">${personVo.code}</td>  

@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import com.github.pagehelper.Page;
+import com.junyang.common.model.tree.MyPage;
 import org.activiti.engine.RepositoryService;
 import org.activiti.engine.RuntimeService;
 import org.activiti.engine.TaskService;
@@ -27,7 +28,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import com.junyang.common.Constants;
 import com.junyang.common.utils.ControllerUtil;
 import com.junyang.common.utils.JsonUtil;
 import com.junyang.oa.model.Leave;
@@ -52,11 +52,9 @@ public class LeaveController {
 	private static final String TASK_LIST_VIEW = "oa/leave/taskList";
 	
 	@RequestMapping(value="myleaveList")
-	private ModelAndView myleaveList(@ModelAttribute("page") Page page, HttpServletRequest request){
-		List  list = null;
+	private ModelAndView myleaveList(@ModelAttribute("page") MyPage page){
 		Map<String, Object> map =new HashMap<String, Object>();
-		map.put("list", list);
-		map.put("page", page);
+		map.put("page", new MyPage<>());
 		return new ModelAndView(LEAVE_LIST_VIEW,map);
 	}
 	/**
