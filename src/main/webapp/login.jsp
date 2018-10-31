@@ -10,6 +10,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <head>
 <meta http-equiv="Content-Type" content="text/html;charset=ISO-8859-1">
 <title>登录界面</title>
+    <script type="text/javascript" src="res/js/md5.js"></script>
 </head>
 <body>
 <form id="login_form" action="<%=path%>/security/login.do" method="post">
