@@ -1,4 +1,4 @@
-package com.junyang.security.login.model;
+package com.junyang.security.vo;
 
 
 /**

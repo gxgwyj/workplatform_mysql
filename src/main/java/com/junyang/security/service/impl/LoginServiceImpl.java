@@ -1,20 +1,17 @@
-package com.junyang.security.login.service.impl;
-
-import java.util.List;
-
-import javax.jws.WebService;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
+package com.junyang.security.service.impl;
 
 import com.junyang.common.utils.StringUtil;
 import com.junyang.security.dao.PersonMapper;
-import com.junyang.security.login.model.LoginMsg;
-import com.junyang.security.login.service.LoginService;
 import com.junyang.security.model.Person;
+import com.junyang.security.service.LoginService;
+import com.junyang.security.vo.LoginMsg;
 import com.junyang.security.vo.QueryPersonVo;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import java.util.List;
+
 @Service
-@WebService(endpointInterface="com.junyang.security.login.service.LoginService")
 public class LoginServiceImpl implements LoginService {
 	@Autowired 
 	private PersonMapper personMapper;

@@ -1,12 +1,15 @@
-package com.junyang.security.login.controller;
+package com.junyang.security.controller;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-
+import com.junyang.common.Constants;
+import com.junyang.common.model.tree.Node;
+import com.junyang.common.utils.ControllerUtil;
+import com.junyang.common.utils.JsonUtil;
+import com.junyang.common.utils.RSAUtil;
+import com.junyang.security.model.Menu;
+import com.junyang.security.service.MenuService;
+import com.junyang.security.vo.LoginMsg;
+import com.junyang.security.vo.LoginVo;
+import com.junyang.security.vo.SecurityDataVo;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.UsernamePasswordToken;
@@ -14,18 +17,18 @@ import org.apache.shiro.session.Session;
 import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.junyang.common.Constants;
-import com.junyang.common.model.tree.Node;
-import com.junyang.common.utils.ControllerUtil;
-import com.junyang.security.dao.PersonMapper;
-import com.junyang.security.login.model.LoginMsg;
-import com.junyang.security.login.service.LoginService;
-import com.junyang.security.model.Menu;
-import com.junyang.security.service.MenuService;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 /**
  * 登陆处理
@@ -37,19 +40,23 @@ import com.junyang.security.service.MenuService;
 public class LoginController { 
 	private static final String VIEW_PATH_MAIN = "security/main/main";
 	private static final String VIEW_PATH_LOGIN = "forward:/login.jsp";
-	@Autowired
-	private LoginService loginService;
+
 	@Autowired
 	private MenuService menuService;
-	@Autowired 
-	private PersonMapper personMapper;
+	
 	/**
 	 * 登陆 
 	 */
 	@RequestMapping(value="login")
-	private ModelAndView Login(@RequestParam("code") String code,@RequestParam("pwd") String pwd){
+	@ResponseBody
+	private Object login(@RequestBody SecurityDataVo loginVo) throws Exception{
+		System.out.println("获取到的请求数据:"+JsonUtil.Object2Json(loginVo));
+		String data = RSAUtil.privateDecrypt(loginVo.getData(),Constants.PRIVATE_KEY);
+		System.out.println("解密后的业务数据："+data);
 		Map<String,Object> map = new HashMap<String,Object>();
 		LoginMsg loginMsg = new LoginMsg();
+		String code = "";
+		String pwd = "";
 		if(code!=null && pwd!=null){
 			Subject subject = SecurityUtils.getSubject();
 			UsernamePasswordToken token = new UsernamePasswordToken(code, pwd); //shiro加入身份验证
@@ -105,13 +112,10 @@ public class LoginController {
 			//输出json字符串
 			String menuTree = root.toString();
 			map.put("menuTree",menuTree);
-			return new ModelAndView(VIEW_PATH_MAIN,map);	
 		}else{//身份验证失败
 			map.put("loginMsg",loginMsg);
-			return new ModelAndView(VIEW_PATH_LOGIN,map);
 		}
-			
-			
+		return map;
 	}
 	/**
 	 * 退出

@@ -2,18 +2,16 @@
     pageEncoding="utf-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <% String path = request.getContextPath(); %>
-<%
-String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
-%>    
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html;charset=ISO-8859-1">
 <title>登录界面</title>
     <script type="text/javascript" src="res/js/md5.js"></script>
+    <script type="text/javascript" src="res/jquery/jquery-1.7.1.min.js"></script>
+    <script type="text/javascript" src="res/js/jsencrypt.js"></script>
 </head>
 <body>
-<form id="login_form" action="<%=path%>/security/login.do" method="post">
       <div style="background: #DBEAF9;height: 100px;">
         <div style="float: left;">
          <img alt="工作流程管理平台" src="<%=path%>/res/images/logo.png" style="margin-left: 20px;margin-top: 30px;">
@@ -24,13 +22,17 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
       </div>
       <div style="margin-top: 100px;">
          <div align="center">
-            <label for="code" style="font-weight: bolder;">账号：</label>
-            <input type="text" id="code" name="code" style="width: 200px;height: 25px;">
+            <label for="loginName" style="font-weight: bolder;">账号：</label>
+            <input type="text" id="loginName" name="loginName" style="width: 200px;height: 25px;">
          </div>
          <div align="center" style="margin-top: 30px;">
             <label for="pwd" style="font-weight: bolder;">密码：</label>
             <input type="password" id="pwd" name="pwd" style="width: 200px;height: 25px;">
          </div>
+          <div align="center" style="margin-top: 30px;">
+              <label for="randomCode" style="font-weight: bolder;">验证码：</label>
+              <input type="text" id="randomCode" name="randomCode" style="width: 200px;height: 25px;">
+          </div>
          <div align="center" style="margin-top: 30px;">
          	<div id="msg_error" class="msg_error" style="border: 1px solid #e4393c;width: 250px;display: none;"></div>
          </div>
@@ -41,35 +43,67 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
        <div align="center" style="background: #DBEAF9;height: 80px; margin-top: 120px; line-height: 80px;"  >
             <div>版本信息:1.1.1.20151001</div>
        </div>
-       </form>
 </body>
 <script type="text/javascript">
-<!--表单提交-->
+var publicKey = "MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQDIPet0lkb0NTZyOgE2CsmFDD0R" +
+                "kL/BN1uTXFa1H1TIQJ5F9S2IAhyPMMzGpuUTuMCLYN+CsX8NZB2RSDdbVctiXt8x" +
+                "URHL3vxz4V7joAO6EpJDykF/ivAxNR9Y9maNJ/YiU60snTBkCgGrcpWxJZwTda2S" +
+                "7mjFfWNBvb6O9RciwQIDAQAB"
+
 function form_submit(){
 	if(form_Validate()){
-		document.getElementById("login_form").submit();
+        var requestData = createRequestData();
+        $.ajax({
+            type:"POST",
+            url:"<%=path%>/security/login.do",
+            contentType:"application/json; charset=utf-8",
+            dataType:"json",
+            data:JSON.stringify(requestData),
+            success: function (message) {
+                if (message > 0) {
+                    alert("请求已提交！我们会尽快与您取得联系");
+                }
+            },
+        });
+
 	}
+}
+function createRequestData() {
+    var loginName = $("#loginName").val();
+    var pwd = hex_md5($("#pwd").val());
+    var randomCode = $("#randomCode").val();
+    var sign = hex_md5(loginName + pwd + randomCode);
+    var obj = {loginName:loginName,pwd:pwd,randomCode:randomCode};
+    var jsonStr = JSON.stringify(obj);
+    console.log("json格式的字符串："+jsonStr);
+    var encrypt = new JSEncrypt();
+    encrypt.setPublicKey(publicKey);
+    var data = encrypt.encrypt(jsonStr);
+    console.log("加密后的数据串："+data);
+    var requestData = {sign:sign,data:data};
+    return requestData;
+
 }
 <!--验证-->
 function form_Validate(){
-	var code = document.getElementById("code").value;
-	var pwd = document.getElementById("pwd").value;
-	if(""==code || ""==pwd){
+	var loginName = $("#loginName").val();
+	var pwd = $("#pwd").val();
+	if(""==loginName || ""==pwd){
 		var msg ="" ;
-		if(""==code && ""==pwd){
+		if(""==loginName && ""==pwd){
 			msg = "用户名和密码不能为空";
 		}
-		if(""==code && ""!=pwd){
-			msg = "用户名不能为空";
-		}
-		if(""!=code && ""==pwd){
-			msg = "密码不能为空";
-		}
-		document.getElementById("msg_error").innerHTML = msg;
-		document.getElementById("msg_error").style.display = "block";
+		if(""==loginName && ""!=pwd) {
+            msg = "用户名不能为空";
+        }
+		if(""!=loginName && ""==pwd) {
+            msg = "密码不能为空";
+        }
+		$("#msg_error").html(msg);
+		$("#msg_error").show();
 		return false;
 	}else{
-		document.getElementById("msg_error").style.display = "none";
+		$("#msg_error").hide();
 		return true;    		
 	}
 }
