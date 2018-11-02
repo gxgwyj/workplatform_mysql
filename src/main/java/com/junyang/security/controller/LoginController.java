@@ -1,5 +1,6 @@
 package com.junyang.security.controller;
 
+import com.alibaba.dubbo.common.json.JSON;
 import com.junyang.common.Constants;
 import com.junyang.common.model.tree.Node;
 import com.junyang.common.utils.ControllerUtil;
@@ -15,6 +16,8 @@ import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.UsernamePasswordToken;
 import org.apache.shiro.session.Session;
 import org.apache.shiro.subject.Subject;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -37,46 +40,47 @@ import java.util.Set;
  */
 @Controller
 @RequestMapping(value="security/")
-public class LoginController { 
+public class LoginController {
+
 	private static final String VIEW_PATH_MAIN = "security/main/main";
 	private static final String VIEW_PATH_LOGIN = "forward:/login.jsp";
+
+	private static final Logger logger = LoggerFactory.getLogger(LoginController.class);
 
 	@Autowired
 	private MenuService menuService;
 	
 	/**
-	 * 登陆 
+	 * 登陆
 	 */
 	@RequestMapping(value="login")
 	@ResponseBody
-	private Object login(@RequestBody SecurityDataVo loginVo) throws Exception{
-		System.out.println("获取到的请求数据:"+JsonUtil.Object2Json(loginVo));
-		String data = RSAUtil.privateDecrypt(loginVo.getData(),Constants.PRIVATE_KEY);
-		System.out.println("解密后的业务数据："+data);
+	private Object login(@RequestBody SecurityDataVo securityDataVo) throws Exception{
+		logger.info("获取到的请求数据:{}",JsonUtil.Object2Json(securityDataVo));
+		String data = RSAUtil.privateDecrypt(securityDataVo.getData(),Constants.PRIVATE_KEY);
+		LoginVo loginVo = JSON.parse(data,LoginVo.class);
 		Map<String,Object> map = new HashMap<String,Object>();
 		LoginMsg loginMsg = new LoginMsg();
-		String code = "";
-		String pwd = "";
-		if(code!=null && pwd!=null){
+		if (loginVo != null) {
 			Subject subject = SecurityUtils.getSubject();
-			UsernamePasswordToken token = new UsernamePasswordToken(code, pwd); //shiro加入身份验证
+			UsernamePasswordToken token = new UsernamePasswordToken(loginVo.getLoginName(), loginVo.getPwd()); //shiro加入身份验证
 			try {
 				subject.login(token);
 				loginMsg.setShowMsg("用户身身份验证成功！");
-				loginMsg.setIslogin(true);	
+				loginMsg.setIslogin(true);
 			} catch (AuthenticationException e) {
 				e.printStackTrace();
 				loginMsg.setShowMsg("用户身份验证失败！");
-				loginMsg.setIslogin(false);	
-			} 
-		}else{
+				loginMsg.setIslogin(false);
+			}
+		} else {
 			loginMsg.setShowMsg("用户名或密码错误！");
-			loginMsg.setIslogin(false);	
+			loginMsg.setIslogin(false);
 		}
 		if(loginMsg.isIslogin()){//身份验证成功
 			//获取所有的菜单
 			List<Menu> listMenu = null;
-			if("admin".equals(code)  && "admin".equals(pwd)){
+			if("admin".equals(loginVo.getLoginName())  && "admin".equals(loginVo.getPwd())){
 				//获取所有的菜单
 				listMenu = menuService.findMenuList();
 			}else{

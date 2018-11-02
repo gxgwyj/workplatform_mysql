@@ -31,7 +31,8 @@
          </div>
           <div align="center" style="margin-top: 30px;">
               <label for="randomCode" style="font-weight: bolder;">验证码：</label>
-              <input type="text" id="randomCode" name="randomCode" style="width: 200px;height: 25px;">
+              <input type="text" id="randomCode" name="randomCode" style="width: 100px;height: 25px;">
+              <img src="/open/randomCode.do" alt="验证码，点击更换验证码" onclick="changeImg(this)" style="width: 80px;height: 40px;vertical-align:middle;">
           </div>
          <div align="center" style="margin-top: 30px;">
          	<div id="msg_error" class="msg_error" style="border: 1px solid #e4393c;width: 250px;display: none;"></div>
@@ -45,10 +46,10 @@
        </div>
 </body>
 <script type="text/javascript">
-var publicKey = "MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQDIPet0lkb0NTZyOgE2CsmFDD0R" +
-                "kL/BN1uTXFa1H1TIQJ5F9S2IAhyPMMzGpuUTuMCLYN+CsX8NZB2RSDdbVctiXt8x" +
-                "URHL3vxz4V7joAO6EpJDykF/ivAxNR9Y9maNJ/YiU60snTBkCgGrcpWxJZwTda2S" +
-                "7mjFfWNBvb6O9RciwQIDAQAB"
+    var  publicKey = "MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQDvoXplm2SJGGmqq/L31ERYaeRC" +
+        "XEjjT/jSNb8PqjnjAz1/gGwaaXwHUmcaLr0LUBq5VY5akoWjsPp46w4fUbrNeF8w" +
+        "AhGbwKkwHAAy6jfsxHsPINWUUt1F4fbhPoM2hzp1eg19kKkxaOR7gGEX+BQf7QZI" +
+        "8x7aQNuYKex1shLe/QIDAQAB";
 
 function form_submit(){
 	if(form_Validate()){
@@ -107,11 +108,10 @@ function form_Validate(){
 		return true;    		
 	}
 }
-<!--验证回传信息-->
-<c:if test="${loginMsg!=null}">
-   document.getElementById("msg_error").innerHTML = "${loginMsg.showMsg}";
-   document.getElementById("msg_error").style.display = "block";
-</c:if>
+
+function changeImg(obj) {
+    $(obj).attr("src","/open/randomCode.do");
+}
 
 </script>
 </html>
