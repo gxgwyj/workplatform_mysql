@@ -4,6 +4,7 @@ public class Constants {
 	public static final  String P_MASTER_ROLE = "role";
 	public static final  String SESSION_USER = "sessionUser";
 	public static final  String NO_INTERCEPTOR_PATH = ".*/((login)|(logout)|(randomCode)).*";	//不对匹配该值的访问路径拦截（正则）
+	public static final  String LOGIN_PWD_KEY = "login_pwd_%s";
 
 
 	public static final String PUBLIC_KEY = "MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQDvoXplm2SJGGmqq/L31ERYaeRC" +

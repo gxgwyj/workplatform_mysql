@@ -216,7 +216,7 @@
        <if test="queryPersonVo!=null">
        	<where>
        		<if test="queryPersonVo.qCode!=null and queryPersonVo.qCode!=''"> and t1.P_CODE = #{queryPersonVo.qCode,jdbcType=VARCHAR}</if>
-       		<if test="queryPersonVo.qPassWord!=null and queryPersonVo.qPassWord!=''"> and t1.P_PASSWORD = #{queryPersonVo.qCode,jdbcType=VARCHAR}</if>
+       		<if test="queryPersonVo.qPassWord!=null and queryPersonVo.qPassWord!=''"> and t1.P_PASSWORD = #{queryPersonVo.qPassWord,jdbcType=VARCHAR}</if>
        	</where>
        </if>
   </select>

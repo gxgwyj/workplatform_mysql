@@ -2,11 +2,14 @@ package com.junyang.security.controller;
 
 import com.alibaba.dubbo.common.json.JSON;
 import com.junyang.common.Constants;
+import com.junyang.common.MessageEnum;
+import com.junyang.common.model.ApiResponse;
 import com.junyang.common.model.tree.Node;
 import com.junyang.common.utils.ControllerUtil;
 import com.junyang.common.utils.JsonUtil;
 import com.junyang.common.utils.RSAUtil;
 import com.junyang.security.model.Menu;
+import com.junyang.security.service.LoginService;
 import com.junyang.security.service.MenuService;
 import com.junyang.security.vo.LoginMsg;
 import com.junyang.security.vo.LoginVo;
@@ -26,6 +29,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -49,44 +53,38 @@ public class LoginController {
 
 	@Autowired
 	private MenuService menuService;
+
+	@Autowired
+	private LoginService loginService;
 	
 	/**
 	 * 登陆
 	 */
 	@RequestMapping(value="login")
 	@ResponseBody
-	private Object login(@RequestBody SecurityDataVo securityDataVo) throws Exception{
-		logger.info("获取到的请求数据:{}",JsonUtil.Object2Json(securityDataVo));
-		String data = RSAUtil.privateDecrypt(securityDataVo.getData(),Constants.PRIVATE_KEY);
-		LoginVo loginVo = JSON.parse(data,LoginVo.class);
+	private ApiResponse login(@RequestBody SecurityDataVo securityDataVo, HttpServletRequest request){
+		return loginService.loginValidate(securityDataVo);
+	}
+	/**
+	 * 退出
+	 */
+	@RequestMapping(value="logout")
+	private ModelAndView logout(){
+		Subject subject = SecurityUtils.getSubject();
+		Session session = subject.getSession();
+		session.removeAttribute(Constants.SESSION_USER);
+		//shiro销毁登录
+		subject.logout();
+	   return new ModelAndView("redirect:/login.jsp");
+	}
+
+	public  void  aaad() {
 		Map<String,Object> map = new HashMap<String,Object>();
 		LoginMsg loginMsg = new LoginMsg();
-		if (loginVo != null) {
-			Subject subject = SecurityUtils.getSubject();
-			UsernamePasswordToken token = new UsernamePasswordToken(loginVo.getLoginName(), loginVo.getPwd()); //shiro加入身份验证
-			try {
-				subject.login(token);
-				loginMsg.setShowMsg("用户身身份验证成功！");
-				loginMsg.setIslogin(true);
-			} catch (AuthenticationException e) {
-				e.printStackTrace();
-				loginMsg.setShowMsg("用户身份验证失败！");
-				loginMsg.setIslogin(false);
-			}
-		} else {
-			loginMsg.setShowMsg("用户名或密码错误！");
-			loginMsg.setIslogin(false);
-		}
 		if(loginMsg.isIslogin()){//身份验证成功
 			//获取所有的菜单
-			List<Menu> listMenu = null;
-			if("admin".equals(loginVo.getLoginName())  && "admin".equals(loginVo.getPwd())){
-				//获取所有的菜单
-				listMenu = menuService.findMenuList();
-			}else{
-				listMenu = new ArrayList<Menu>(menuService.findPersonMenusByPersonId(ControllerUtil.getCurrentUser().getId()));
-			}
-			
+			List<Menu> listMenu = new ArrayList<Menu>(menuService.findPersonMenusByPersonId(ControllerUtil.getCurrentUser().getId()));
+
 			//节点列表（散列表）
 			HashMap<String, Object> nodeMap = new HashMap<String, Object>();
 			//定义根节点
@@ -119,20 +117,6 @@ public class LoginController {
 		}else{//身份验证失败
 			map.put("loginMsg",loginMsg);
 		}
-		return map;
-	}
-	/**
-	 * 退出
-	 */
-	@RequestMapping(value="logout")
-	private ModelAndView logout(){
-		//shiro管理的session
-		Subject subject = SecurityUtils.getSubject();  
-		Session session = subject.getSession();
-		session.removeAttribute(Constants.SESSION_USER);
-		//shiro销毁登录
-		subject.logout();
-	   return new ModelAndView("redirect:/login.jsp");
 	}
 
 }

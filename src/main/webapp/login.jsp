@@ -60,9 +60,12 @@ function form_submit(){
             contentType:"application/json; charset=utf-8",
             dataType:"json",
             data:JSON.stringify(requestData),
-            success: function (message) {
-                if (message > 0) {
-                    alert("请求已提交！我们会尽快与您取得联系");
+            success: function (msg) {
+                if ("200" == msg.res_code) {
+                    window.location.href="<%=path%>/toPage?path=security/main/main";
+                }else {
+                    $("#msg_error").html(msg.res_msg);
+                    $("#msg_error").show();
                 }
             },
         });

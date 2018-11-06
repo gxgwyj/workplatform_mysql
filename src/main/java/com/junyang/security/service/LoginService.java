@@ -1,8 +1,9 @@
 package com.junyang.security.service;
 
 
-import com.junyang.security.vo.LoginMsg;
+import com.junyang.common.model.ApiResponse;
+import com.junyang.security.vo.SecurityDataVo;
 
 public interface LoginService {
-	public LoginMsg loginValidate(String code, String password);
+	ApiResponse loginValidate(SecurityDataVo securityDataVo);
 }

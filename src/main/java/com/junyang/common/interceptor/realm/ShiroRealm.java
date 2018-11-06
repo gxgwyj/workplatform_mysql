@@ -42,8 +42,6 @@ public class ShiroRealm extends AuthorizingRealm {
     @Override
     protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principals) {
 
-
-        String username = (String) principals.getPrimaryPrincipal();
         SimpleAuthorizationInfo authorizationInfo = new SimpleAuthorizationInfo();//创建授权对象
         Subject currentUser = SecurityUtils.getSubject();//获取当前的用户
         Session session = currentUser.getSession();

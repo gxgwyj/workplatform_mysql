@@ -1,17 +1,24 @@
 package com.junyang.common.utils;
 
 import com.junyang.common.Constants;
+import com.junyang.common.exception.RSADecryptException;
 import sun.misc.BASE64Decoder;
 import sun.misc.BASE64Encoder;
 
+import javax.crypto.BadPaddingException;
 import javax.crypto.Cipher;
+import javax.crypto.IllegalBlockSizeException;
+import javax.crypto.NoSuchPaddingException;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.security.InvalidKeyException;
 import java.security.KeyFactory;
 import java.security.KeyPair;
 import java.security.KeyPairGenerator;
+import java.security.NoSuchAlgorithmException;
 import java.security.PrivateKey;
 import java.security.PublicKey;
+import java.security.spec.InvalidKeySpecException;
 import java.security.spec.PKCS8EncodedKeySpec;
 import java.security.spec.X509EncodedKeySpec;
 
@@ -32,8 +39,6 @@ public class RSAUtil {
      * RSA最大解密密文大小
      */
     private static final int MAX_DECRYPT_BLOCK = 128;
-
-
 
 
 
@@ -70,11 +75,11 @@ public class RSAUtil {
 
     //将Base64编码后的私钥转换成PrivateKey对象
     public static PrivateKey string2PrivateKey(String priStr) throws Exception{
-        byte[] keyBytes = base642Byte(priStr);
-        PKCS8EncodedKeySpec keySpec = new PKCS8EncodedKeySpec(keyBytes);
-        KeyFactory keyFactory = KeyFactory.getInstance("RSA");
-        PrivateKey privateKey = keyFactory.generatePrivate(keySpec);
-        return privateKey;
+            byte[] keyBytes = base642Byte(priStr);
+            PKCS8EncodedKeySpec keySpec = new PKCS8EncodedKeySpec(keyBytes);
+            KeyFactory keyFactory = KeyFactory.getInstance("RSA");
+            PrivateKey privateKey = keyFactory.generatePrivate(keySpec);
+            return privateKey;
     }
 
     //公钥加密
@@ -86,28 +91,28 @@ public class RSAUtil {
     }
 
     //私钥解密
-    public static byte[] privateDecrypt(byte[] content, PrivateKey privateKey) throws Exception{
-        Cipher cipher = Cipher.getInstance("RSA");
-        cipher.init(Cipher.DECRYPT_MODE, privateKey);
-        int inputLen = content.length;
-        ByteArrayOutputStream out = new ByteArrayOutputStream();
-        int offSet = 0;
-        byte[] cache;
-        int i = 0;
-        // 对数据分段解密
-        while (inputLen - offSet > 0) {
-            if (inputLen - offSet > MAX_DECRYPT_BLOCK) {
-                cache = cipher.doFinal(content, offSet, MAX_DECRYPT_BLOCK);
-            } else {
-                cache = cipher.doFinal(content, offSet, inputLen - offSet);
+    public static byte[] privateDecrypt(byte[] content, PrivateKey privateKey) throws Exception {
+            Cipher cipher = Cipher.getInstance("RSA");
+            cipher.init(Cipher.DECRYPT_MODE, privateKey);
+            int inputLen = content.length;
+            ByteArrayOutputStream out = new ByteArrayOutputStream();
+            int offSet = 0;
+            byte[] cache;
+            int i = 0;
+            // 对数据分段解密
+            while (inputLen - offSet > 0) {
+                if (inputLen - offSet > MAX_DECRYPT_BLOCK) {
+                    cache = cipher.doFinal(content, offSet, MAX_DECRYPT_BLOCK);
+                } else {
+                    cache = cipher.doFinal(content, offSet, inputLen - offSet);
+                }
+                out.write(cache, 0, cache.length);
+                i++;
+                offSet = i * MAX_DECRYPT_BLOCK;
             }
-            out.write(cache, 0, cache.length);
-            i++;
-            offSet = i * MAX_DECRYPT_BLOCK;
-        }
-        byte[] bytes = out.toByteArray();
-        out.close();
-        return bytes;
+            byte[] bytes = out.toByteArray();
+            out.close();
+            return bytes;
     }
 
     //字节数组转Base64编码
@@ -130,10 +135,14 @@ public class RSAUtil {
     }
 
     //私钥解密
-    public static String privateDecrypt(String content, String privateKey) throws Exception{
-        PrivateKey key = string2PrivateKey(privateKey);
-        byte[] bytes = privateDecrypt(base642Byte(content), key);
-        return new String(bytes,"UTF-8");
+    public static String privateDecrypt(String content, String privateKey) throws RSADecryptException{
+        try {
+            PrivateKey key = string2PrivateKey(privateKey);
+            byte[] bytes = privateDecrypt(base642Byte(content), key);
+            return new String(bytes,"UTF-8");
+        } catch (Exception e) {
+            throw new RSADecryptException(e);
+        }
     }
 
 
