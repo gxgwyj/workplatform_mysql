@@ -46,9 +46,6 @@ import java.util.Set;
 @RequestMapping(value="security/")
 public class LoginController {
 
-	private static final String VIEW_PATH_MAIN = "security/main/main";
-	private static final String VIEW_PATH_LOGIN = "forward:/login.jsp";
-
 	private static final Logger logger = LoggerFactory.getLogger(LoginController.class);
 
 	@Autowired

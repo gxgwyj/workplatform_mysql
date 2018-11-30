@@ -113,7 +113,7 @@ public class MenuController {
 		String menuIdsStr=request.getParameter("menuIdsStr");
 		String roleId=request.getParameter("roleId");
 		if(menuIdsStr!=null && !StringUtil.isEmpty(roleId) ){
-			String[] menuIds=menuIdsStr.split(",");
+			String[] menuIds = menuIdsStr.split(",");
 			menuService.updateRoleMenuService(menuIds, roleId);
 		}
 		List<TreeNode> listNode=menuService.findTreeNodesByRoleId(roleId);
