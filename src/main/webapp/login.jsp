@@ -62,7 +62,7 @@ function form_submit(){
             data:JSON.stringify(requestData),
             success: function (msg) {
                 if ("200" == msg.res_code) {
-                    window.location.href="<%=path%>/toPage?path=security/main/main";
+                    window.location.href="<%=path%>/toPage.do?path=security/main/main";
                 }else {
                     $("#msg_error").html(msg.res_msg);
                     $("#msg_error").show();
