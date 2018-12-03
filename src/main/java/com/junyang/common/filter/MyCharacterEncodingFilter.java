@@ -1,13 +1,12 @@
 package com.junyang.common.filter;
 
-import java.io.IOException;
+import org.springframework.web.filter.CharacterEncodingFilter;
 
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
-import org.springframework.web.filter.CharacterEncodingFilter;
+import java.io.IOException;
 
 public class MyCharacterEncodingFilter extends CharacterEncodingFilter{
 

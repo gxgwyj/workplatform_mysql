@@ -1,11 +1,10 @@
 package com.junyang.common.utils;
 
+import com.junyang.common.Constants;
+import com.junyang.security.vo.PersonVo;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.session.Session;
 import org.apache.shiro.subject.Subject;
-
-import com.junyang.common.Constants;
-import com.junyang.security.vo.PersonVo;
 
 public class ControllerUtil {
 	public static PersonVo  getCurrentUser(){

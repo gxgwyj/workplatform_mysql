@@ -1,17 +1,15 @@
 package com.junyang.common.interceptor;
 
-import java.io.PrintWriter;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
+import com.junyang.common.Constants;
+import com.junyang.security.vo.PersonVo;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.session.Session;
 import org.apache.shiro.subject.Subject;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
-import com.junyang.common.Constants;
-import com.junyang.security.vo.PersonVo;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.PrintWriter;
 
 public class ShiroInterceptor extends HandlerInterceptorAdapter {
 	

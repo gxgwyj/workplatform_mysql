@@ -1,15 +1,13 @@
 package com.junyang.security.controller;
 
-import java.io.File;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.UUID;
-
-import javax.servlet.http.HttpServletRequest;
-
-import com.github.pagehelper.Page;
 import com.junyang.common.model.tree.MyPage;
+import com.junyang.common.utils.StringUtil;
+import com.junyang.security.model.Organization;
+import com.junyang.security.model.Person;
+import com.junyang.security.service.OrganizationService;
+import com.junyang.security.service.PersonService;
+import com.junyang.security.vo.PersonVo;
+import com.junyang.security.vo.QueryPersonVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -19,13 +17,12 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.junyang.common.utils.StringUtil;
-import com.junyang.security.model.Organization;
-import com.junyang.security.model.Person;
-import com.junyang.security.service.OrganizationService;
-import com.junyang.security.service.PersonService;
-import com.junyang.security.vo.PersonVo;
-import com.junyang.security.vo.QueryPersonVo;
+import javax.servlet.http.HttpServletRequest;
+import java.io.File;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.UUID;
 
 @Controller
 @RequestMapping(value="security/person/")

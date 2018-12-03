@@ -1,12 +1,11 @@
 package com.junyang.security.dao;
 
-import java.util.List;
-import java.util.Set;
-
-import org.apache.ibatis.annotations.Param;
-
 import com.junyang.security.model.Role;
 import com.junyang.security.vo.QueryRoleVo;
+import org.apache.ibatis.annotations.Param;
+
+import java.util.List;
+import java.util.Set;
 
 public interface RoleMapper {
     int deleteByPrimaryKey(String rId);

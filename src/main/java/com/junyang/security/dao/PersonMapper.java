@@ -1,13 +1,12 @@
 package com.junyang.security.dao;
 
 
-import java.util.List;
-
-import org.apache.ibatis.annotations.Param;
-
 import com.junyang.security.model.Person;
 import com.junyang.security.vo.PersonVo;
 import com.junyang.security.vo.QueryPersonVo;
+import org.apache.ibatis.annotations.Param;
+
+import java.util.List;
 
 /**
  * dao 人员接口

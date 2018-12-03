@@ -1,16 +1,8 @@
 package com.junyang.security.service.impl;
 
-import java.util.List;
-import java.util.Set;
-
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import com.junyang.common.model.tree.MyPage;
-import com.junyang.common.utils.JsonUtil;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
-
 import com.junyang.common.utils.StringUtil;
 import com.junyang.security.dao.PersonMapper;
 import com.junyang.security.model.Menu;
@@ -21,6 +13,12 @@ import com.junyang.security.service.PersonService;
 import com.junyang.security.service.RoleService;
 import com.junyang.security.vo.PersonVo;
 import com.junyang.security.vo.QueryPersonVo;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
+import java.util.Set;
 @Service
 public class PersonServiceImpl implements PersonService {
     @Autowired 

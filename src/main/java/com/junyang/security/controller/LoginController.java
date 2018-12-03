@@ -1,41 +1,28 @@
 package com.junyang.security.controller;
 
-import com.alibaba.dubbo.common.json.JSON;
 import com.junyang.common.Constants;
-import com.junyang.common.MessageEnum;
 import com.junyang.common.model.ApiResponse;
 import com.junyang.common.model.tree.Node;
 import com.junyang.common.utils.ControllerUtil;
-import com.junyang.common.utils.JsonUtil;
-import com.junyang.common.utils.RSAUtil;
 import com.junyang.security.model.Menu;
 import com.junyang.security.service.LoginService;
 import com.junyang.security.service.MenuService;
 import com.junyang.security.vo.LoginMsg;
-import com.junyang.security.vo.LoginVo;
 import com.junyang.security.vo.SecurityDataVo;
 import org.apache.shiro.SecurityUtils;
-import org.apache.shiro.authc.AuthenticationException;
-import org.apache.shiro.authc.UsernamePasswordToken;
 import org.apache.shiro.session.Session;
 import org.apache.shiro.subject.Subject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 /**
  * 登陆处理

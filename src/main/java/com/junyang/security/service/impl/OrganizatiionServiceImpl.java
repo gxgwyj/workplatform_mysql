@@ -1,19 +1,18 @@
 package com.junyang.security.service.impl;
 
-import java.util.List;
-
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import com.junyang.common.model.tree.MyPage;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
 import com.junyang.common.utils.StringUtil;
 import com.junyang.security.dao.OrganizationMapper;
 import com.junyang.security.model.Organization;
 import com.junyang.security.service.OrganizationService;
 import com.junyang.security.vo.OrganizationVo;
 import com.junyang.security.vo.QueryOrganizationVo;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import java.util.List;
 @Service
 public class OrganizatiionServiceImpl implements OrganizationService {
 

@@ -1,9 +1,9 @@
 package com.junyang.oa.dao;
 
-import java.util.List;
-
 import com.junyang.oa.model.Leave;
 import com.junyang.oa.vo.LeaveVo;
+
+import java.util.List;
 
 public interface LeaveMapper {
     int deleteByPrimaryKey(String id);

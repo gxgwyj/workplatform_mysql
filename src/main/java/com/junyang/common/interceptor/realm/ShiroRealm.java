@@ -1,15 +1,13 @@
 package com.junyang.common.interceptor.realm;
 
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
-
+import com.junyang.common.Constants;
+import com.junyang.security.model.Menu;
+import com.junyang.security.model.Role;
+import com.junyang.security.service.PersonService;
+import com.junyang.security.vo.PersonVo;
+import com.junyang.security.vo.QueryPersonVo;
 import org.apache.shiro.SecurityUtils;
-import org.apache.shiro.authc.AuthenticationException;
-import org.apache.shiro.authc.AuthenticationInfo;
-import org.apache.shiro.authc.AuthenticationToken;
-import org.apache.shiro.authc.SimpleAuthenticationInfo;
-import org.apache.shiro.authc.UsernamePasswordToken;
+import org.apache.shiro.authc.*;
 import org.apache.shiro.authz.AuthorizationInfo;
 import org.apache.shiro.authz.SimpleAuthorizationInfo;
 import org.apache.shiro.realm.AuthorizingRealm;
@@ -18,12 +16,9 @@ import org.apache.shiro.subject.PrincipalCollection;
 import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import com.junyang.common.Constants;
-import com.junyang.security.model.Menu;
-import com.junyang.security.model.Role;
-import com.junyang.security.service.PersonService;
-import com.junyang.security.vo.PersonVo;
-import com.junyang.security.vo.QueryPersonVo;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 /**
  * Realm充当了Shiro与应用安全数据间的“桥梁”或者“连接器”。也就是说，当对用户执行认证（登录）和授权（访问控制）验证时，

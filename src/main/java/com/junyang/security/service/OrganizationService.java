@@ -1,12 +1,11 @@
 package com.junyang.security.service;
 
-import java.util.List;
-
-import com.github.pagehelper.Page;
 import com.junyang.common.model.tree.MyPage;
 import com.junyang.security.model.Organization;
 import com.junyang.security.vo.OrganizationVo;
 import com.junyang.security.vo.QueryOrganizationVo;
+
+import java.util.List;
 
 public interface OrganizationService {
 	public void saveOrupdateOrg(Organization organization);

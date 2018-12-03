@@ -1,13 +1,5 @@
 package com.junyang.security.service.impl;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Set;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
 import com.junyang.common.Constants;
 import com.junyang.common.model.tree.TreeNode;
 import com.junyang.common.utils.StringUtil;
@@ -17,6 +9,13 @@ import com.junyang.security.model.Menu;
 import com.junyang.security.model.Privilege;
 import com.junyang.security.service.MenuService;
 import com.junyang.security.vo.MenuVo;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Set;
 @Service
 public class MenuServiceImpl implements MenuService {
 	@Autowired

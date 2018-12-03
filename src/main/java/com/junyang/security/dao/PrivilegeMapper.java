@@ -1,8 +1,7 @@
 package com.junyang.security.dao;
 
-import org.apache.ibatis.annotations.Param;
-
 import com.junyang.security.model.Privilege;
+import org.apache.ibatis.annotations.Param;
 
 
 public interface PrivilegeMapper {

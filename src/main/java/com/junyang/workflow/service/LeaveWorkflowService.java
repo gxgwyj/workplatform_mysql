@@ -1,10 +1,10 @@
 package com.junyang.workflow.service;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
+import com.junyang.common.utils.PrimaryKeyManager;
+import com.junyang.oa.dao.LeaveMapper;
+import com.junyang.oa.model.Leave;
+import com.junyang.oa.vo.LeaveVo;
+import com.junyang.security.service.PersonService;
 import org.activiti.engine.IdentityService;
 import org.activiti.engine.RepositoryService;
 import org.activiti.engine.RuntimeService;
@@ -16,11 +16,10 @@ import org.activiti.engine.task.TaskQuery;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.junyang.common.utils.PrimaryKeyManager;
-import com.junyang.oa.dao.LeaveMapper;
-import com.junyang.oa.model.Leave;
-import com.junyang.oa.vo.LeaveVo;
-import com.junyang.security.service.PersonService;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 @Service
 public class LeaveWorkflowService {
 	@Autowired

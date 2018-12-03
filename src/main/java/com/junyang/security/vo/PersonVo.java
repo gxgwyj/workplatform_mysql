@@ -1,10 +1,9 @@
 package com.junyang.security.vo;
 
-import java.util.Set;
-
+import com.junyang.security.model.Role;
 import org.springframework.format.annotation.DateTimeFormat;
 
-import com.junyang.security.model.Role;
+import java.util.Set;
 
 
 /**

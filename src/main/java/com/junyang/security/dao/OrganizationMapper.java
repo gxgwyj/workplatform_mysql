@@ -1,12 +1,11 @@
 package com.junyang.security.dao;
 
-import java.util.List;
-
-import org.apache.ibatis.annotations.Param;
-
 import com.junyang.security.model.Organization;
 import com.junyang.security.vo.OrganizationVo;
 import com.junyang.security.vo.QueryOrganizationVo;
+import org.apache.ibatis.annotations.Param;
+
+import java.util.List;
 
 public interface OrganizationMapper  {
     int deleteByPrimaryKey(String oId);

@@ -1,12 +1,11 @@
 package com.junyang.common.utils;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.junyang.security.model.Menu;
+
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-
-
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.junyang.security.model.Menu;
 
 public class JsonUtil {
 	
