@@ -6,14 +6,14 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html;charset=ISO-8859-1">
 <title>登录界面</title>
-    <script type="text/javascript" src="res/js/md5.js"></script>
-    <script type="text/javascript" src="res/jquery/jquery-1.7.1.min.js"></script>
-    <script type="text/javascript" src="res/js/jsencrypt.js"></script>
+    <script type="text/javascript" src="/static/js/md5.js"></script>
+    <script type="text/javascript" src="/static/js/jquery-easyui-1.4.4/jquery.min.js"></script>
+    <script type="text/javascript" src="/static/js/jsencrypt.js"></script>
 </head>
 <body>
       <div style="background: #DBEAF9;height: 100px;">
         <div style="float: left;">
-         <img alt="工作流程管理平台" src="<%=path%>/res/images/logo.png" style="margin-left: 20px;margin-top: 30px;">
+         <img alt="工作流程管理平台" src="/static/images/logo.png" style="margin-left: 20px;margin-top: 30px;">
         </div>
         <div style="float: left;margin-top: 30px; margin-left: 20px;">
          <span style="font-size: 40px;font-weight: bolder;">工作流程管理平台</span>
@@ -61,7 +61,7 @@ function form_submit(){
             data:JSON.stringify(requestData),
             success: function (msg) {
                 if ("200" == msg.res_code) {
-                    window.location.href="<%=path%>/toPage.do?path=security/main/main";
+                    window.location.href="/static/page/main.html";
                 }else {
                     $("#msg_error").html(msg.res_msg);
                     $("#msg_error").show();
