@@ -1,0 +1,17 @@
+/*-------------------------------------------------------
+ All Rights Reserved, Copyright (C) 2013, Wuyeguo, Ltd.
+-------------------------------------------------------*/
+
+a,
+a:link { color:#000; text-decoration:none; outline:none;}
+a:hover,
+a:focus { text-decoration:none; color:#39f;}
+
+.cu-side-tree .tree-node { padding:3px 0px; }
+.cu-side-tree a { display:block;}
+.cu-side-tree .tree-node-selected { padding:2px 0; border:1px #fade23 solid;}
+
+.wu-toolbar-button,
+.wu-toolbar-search { padding:3px 5px;}
+
+
