@@ -3,12 +3,12 @@ package com.junyang.common.model;
 import java.io.Serializable;
 
 /**
- * 类: ApiResponse <br>
- * 描述: controller接口返回通用格式<br>
+ * 类: ServiceResponse <br>
+ * 描述: service接口返回通用格式<br>
  * 作者:  gaoxugang<br>
  * 时间: 2018年11月05日 18:09
  */
-public class ApiResponse<T> implements Serializable {
+public class ServiceResponse<T> implements Serializable {
     private static final long serialVersionUID = 331323334269718028L;
 
     private String res_code; // 响应码
@@ -16,11 +16,11 @@ public class ApiResponse<T> implements Serializable {
     private T res_data; // 业务数据
 
 
-    public ApiResponse() {
+    public ServiceResponse() {
         
     }
 
-    public ApiResponse(String res_code, String res_msg, T res_data) {
+    public ServiceResponse(String res_code, String res_msg, T res_data) {
         this.res_code = res_code;
         this.res_msg = res_msg;
         this.res_data = res_data;

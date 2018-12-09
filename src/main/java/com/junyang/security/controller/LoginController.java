@@ -1,13 +1,9 @@
 package com.junyang.security.controller;
 
 import com.junyang.common.Constants;
-import com.junyang.common.model.ApiResponse;
-import com.junyang.common.model.tree.Node;
-import com.junyang.common.utils.ControllerUtil;
-import com.junyang.security.model.Menu;
+import com.junyang.common.model.ServiceResponse;
 import com.junyang.security.service.LoginService;
 import com.junyang.security.service.MenuService;
-import com.junyang.security.vo.LoginMsg;
 import com.junyang.security.vo.SecurityDataVo;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.session.Session;
@@ -20,9 +16,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
-
-import javax.servlet.http.HttpServletRequest;
-import java.util.*;
 
 /**
  * 登陆处理
@@ -46,7 +39,7 @@ public class LoginController {
 	 */
 	@RequestMapping(value="login")
 	@ResponseBody
-	private ApiResponse login(@RequestBody SecurityDataVo securityDataVo, HttpServletRequest request){
+	private ServiceResponse login(@RequestBody SecurityDataVo securityDataVo){
 		return loginService.loginValidate(securityDataVo);
 	}
 	/**
@@ -62,45 +55,12 @@ public class LoginController {
 	   return new ModelAndView("redirect:/login.jsp");
 	}
 
-	public  void  aaad() {
-		Map<String,Object> map = new HashMap<String,Object>();
-		LoginMsg loginMsg = new LoginMsg();
-		if(loginMsg.isIslogin()){//身份验证成功
-			//获取所有的菜单
-			List<Menu> listMenu = new ArrayList<Menu>(menuService.findPersonMenusByPersonId(ControllerUtil.getCurrentUser().getId()));
-
-			//节点列表（散列表）
-			HashMap<String, Object> nodeMap = new HashMap<String, Object>();
-			//定义根节点
-			Node root = null;
-			//根据结果集构造节点列表（存入散列表）
-			for(int i=0;i<listMenu.size();i++){
-				Node node = new Node();
-				node.setId(listMenu.get(i).getId());
-				node.setParentId(listMenu.get(i).getPid());
-				node.setText(listMenu.get(i).getName());
-				node.setUrl(listMenu.get(i).getUrl());
-				nodeMap.put(node.getId(), node);
-			}
-			//构造无序的多叉树
-			Set entrySet = nodeMap.entrySet();
-			Iterator iter = entrySet.iterator();
-			while(iter.hasNext()){
-				Node node = (Node)((Map.Entry)iter.next()).getValue();
-				if(node.getParentId()==null||"-1".equals(node.getParentId())){
-					//根节点
-					root = node;
-				}else{
-					//添加子节点
-					((Node)nodeMap.get(node.getParentId())).getChildren().addChild(node);
-				}
-			}
-			//输出json字符串
-			String menuTree = root.toString();
-			map.put("menuTree",menuTree);
-		}else{//身份验证失败
-			map.put("loginMsg",loginMsg);
-		}
+	@RequestMapping(value="home")
+	@ResponseBody
+	public ServiceResponse home() {
+//		String userId = ControllerUtil.getCurrentUser().getId();
+		String userId = "001";
+		return loginService.homePage(userId);
 	}
 
 }

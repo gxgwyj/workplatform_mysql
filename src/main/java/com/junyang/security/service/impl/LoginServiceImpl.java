@@ -3,12 +3,14 @@ package com.junyang.security.service.impl;
 import com.alibaba.dubbo.common.json.JSON;
 import com.junyang.common.Constants;
 import com.junyang.common.MessageEnum;
-import com.junyang.common.model.ApiResponse;
+import com.junyang.common.model.ServiceResponse;
 import com.junyang.common.utils.JsonUtil;
 import com.junyang.common.utils.MD5Util;
 import com.junyang.common.utils.RSAUtil;
 import com.junyang.security.controller.RandomCodeController;
+import com.junyang.security.model.Menu;
 import com.junyang.security.service.LoginService;
+import com.junyang.security.service.MenuService;
 import com.junyang.security.vo.LoginVo;
 import com.junyang.security.vo.SecurityDataVo;
 import org.apache.shiro.SecurityUtils;
@@ -18,7 +20,13 @@ import org.apache.shiro.session.Session;
 import org.apache.shiro.subject.Subject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Set;
 
 
 @Service
@@ -26,10 +34,13 @@ public class LoginServiceImpl implements LoginService {
 
 	private static final Logger logger = LoggerFactory.getLogger(LoginServiceImpl.class);
 
+	@Autowired
+	MenuService menuService;
+
 	@Override
-	public ApiResponse loginValidate(SecurityDataVo securityDataVo){
+	public ServiceResponse loginValidate(SecurityDataVo securityDataVo){
 		logger.info("获取到的请求数据:{}",JsonUtil.Object2Json(securityDataVo));
-		ApiResponse response = new ApiResponse();
+		ServiceResponse response = new ServiceResponse();
 		Subject subject = SecurityUtils.getSubject();
 		Session session = subject.getSession();
 		String sessionRandomCode = (String) session.getAttribute(RandomCodeController.SESSION_VALID_CODE);
@@ -41,7 +52,7 @@ public class LoginServiceImpl implements LoginService {
 			checkRandomCode(sessionRandomCode, loginVo);
 			checkSign(sign, loginVo);
 			String md5Pwd = MD5Util.MD5(String.format(Constants.LOGIN_PWD_KEY, loginVo.getPwd()));
-			logger.info("Md5-PWD:{}",md5Pwd);
+			logger.info("Md5-PWD:{}", md5Pwd);
 			UsernamePasswordToken token = new UsernamePasswordToken(loginVo.getLoginName(), md5Pwd);
 			subject.login(token);
 			session.removeAttribute(RandomCodeController.SESSION_VALID_CODE);
@@ -72,4 +83,38 @@ public class LoginServiceImpl implements LoginService {
 		}
 	}
 
+	@Override
+	public ServiceResponse homePage(String userId) {
+
+		ServiceResponse response = new ServiceResponse();
+
+		Set<Menu> menus = menuService.findPersonMenusByPersonId(userId);
+
+		HashMap<String,List<Menu>> subMenus = new HashMap<>();  // 一级菜单对应二级菜单Map
+		HashMap<String,Menu> parentMenus = new HashMap<>();  // 一级菜单对应一级菜单Map
+		List<Menu> subTree = new ArrayList<>();
+
+		for (Menu menu : menus) {
+			if ("rootMenu".equals(menu.getPid())) {
+				subTree.add(menu);
+				parentMenus.put(menu.getId(),menu);
+			} else {
+				if (subMenus.get(menu.getPid()) == null) {
+					List<Menu> list = new ArrayList<>();
+					list.add(menu);
+					subMenus.put(menu.getPid(),list);
+				} else {
+					subMenus.get(menu.getPid()).add(menu);
+				}
+			}
+		}
+
+		for (Menu menu : menus) {
+			menu.setSubMenus(subMenus.get(menu.getId()));
+		}
+		response.setRes_code(MessageEnum.SUCCESS.getCode());
+		response.setRes_msg(MessageEnum.SUCCESS.getText());
+		response.setRes_data(subTree);
+		return response;
+	}
 }

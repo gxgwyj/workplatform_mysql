@@ -1,4 +1,7 @@
 package com.junyang.security.model;
+
+import java.util.List;
+
 /**
  * 资源菜单
  * @author Administrator
@@ -14,6 +17,8 @@ public class Menu {
 	private String state;
 	private String isLeaf;
 	private String mcode;
+
+	private List<Menu> subMenus;
 	
 	public Menu() {
 		super();
@@ -85,7 +90,12 @@ public class Menu {
 	public void setMcode(String mcode) {
 		this.mcode = mcode;
 	}
-	
-	
 
+	public List<Menu> getSubMenus() {
+		return subMenus;
+	}
+
+	public void setSubMenus(List<Menu> subMenus) {
+		this.subMenus = subMenus;
+	}
 }
